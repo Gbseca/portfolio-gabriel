@@ -1,0 +1,11 @@
+{
+  "name": "gabriel-fonseca-portfolio",
+  "version": "1.0.0",
+  "description": "Portfólio profissional de Gabriel Fonseca da Silva",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y http-server -p 8080",
+    "dev": "npx -y http-server -p 8080"
+  },
+  "dependencies": {}
+}

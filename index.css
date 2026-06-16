@@ -1,0 +1,893 @@
+/* ==========================================================================
+   MINIMAL DEVELOPER THEME - GABRIEL FONSECA PORTFOLIO
+   ========================================================================== */
+
+:root {
+  /* Clean Dark Palette (Zinc/Neutral tones) */
+  --bg-main: #09090b;
+  --bg-sidebar: #0e0e11;
+  --bg-card: #09090b;
+  --bg-card-hover: #161619;
+  
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  
+  --border-color: #27272a;
+  --border-hover: #3f3f46;
+  
+  /* Coding accents (Vercel & Terminal theme) */
+  --accent-blue: #3b82f6;
+  --accent-green: #22c55e;
+  --accent-orange: #f59e0b;
+  --accent-red: #ef4444;
+
+  --font-mono: 'Fira Code', monospace;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  
+  /* Layout configurations */
+  --sidebar-width: 290px;
+  --header-height: 44px;
+}
+
+/* Reset & Global Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4 {
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* ==========================================================================
+   WORKSPACE GRID (IDE LAYOUT)
+   ========================================================================== */
+
+.workspace-container {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Sidebar styling (like IDE File Explorer) */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: calc((100vw - 1440px) / 2);
+  z-index: 10;
+}
+
+@media (max-width: 1440px) {
+  .sidebar {
+    left: 0;
+  }
+}
+
+/* Editor Area (where active files/tabs are rendered) */
+.editor-area {
+  flex-grow: 1;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(1440px - var(--sidebar-width));
+}
+
+/* ==========================================================================
+   SIDEBAR (FILE EXPLORER) COMPONENTS
+   ========================================================================== */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.avatar-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  background-color: var(--bg-main);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.identity .name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.identity .role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+/* Status light */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green);
+}
+
+.status-text {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--accent-green);
+  font-weight: 500;
+}
+
+/* File tree styling */
+.file-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: auto;
+}
+
+.tree-header {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.tree-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+
+.tree-item:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+}
+
+.tree-item.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+/* File extensions icons style */
+.file-icon {
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  width: 24px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.markdown-icon {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--accent-blue);
+}
+
+.json-icon {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--accent-orange);
+}
+
+.log-icon {
+  background-color: rgba(161, 161, 170, 0.1);
+  color: var(--text-secondary);
+}
+
+/* Environment block config */
+.sidebar-env-block {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.env-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.env-item {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.env-key {
+  color: var(--text-muted);
+}
+
+.env-val {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.env-val:hover {
+  color: var(--text-primary);
+}
+
+.copyright-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   EDITOR TAB HEADER
+   ========================================================================== */
+
+.editor-tab-header {
+  height: var(--header-height);
+  background-color: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.tab-indicator {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  border-right: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  border-top: 2px solid var(--text-primary);
+  margin-bottom: -1px;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--border-color);
+}
+
+/* ==========================================================================
+   EDITOR PANEL & DYNAMIC CONTENT
+   ========================================================================== */
+
+.editor-panel {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  padding: 48px;
+  flex-grow: 1;
+}
+
+.editor-panel.active {
+  display: block;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   FILE: about.md (MARKDOWN DESIGN)
+   ========================================================================== */
+
+.markdown-body {
+  max-width: 760px;
+}
+
+.md-h2 {
+  font-size: 1.75rem;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.md-h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin: 36px 0 16px 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.md-p {
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.md-p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Tech category table */
+.tech-stack-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.tech-row {
+  display: flex;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.tech-category {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.tech-items {
+  color: var(--text-secondary);
+}
+
+/* Statistics row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.stat-card {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.stat-num {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   FILE: projects.json (PORTFOLIO GRID)
+   ========================================================================== */
+
+.projects-control-bar {
+  margin-bottom: 24px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-tag {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  transition: all 0.15s ease;
+}
+
+.filter-tag:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.filter-tag.active {
+  background-color: var(--border-color);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* Standard human GitHub-style project grid */
+.projects-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* GitHub Repository Card Style */
+.project-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+  transition: all 0.2s ease;
+}
+
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.project-badge-category {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.project-card-links {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-link {
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.icon-link:hover {
+  color: var(--text-primary);
+}
+
+.project-card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.project-card-desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.project-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-card-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.project-action-row {
+  border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-inspect-project {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.15s ease;
+}
+
+.btn-inspect-project:hover {
+  opacity: 0.75;
+}
+
+/* Card Hover Styles */
+.project-card:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+
+/* Retractable Utilities block */
+.expand-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.btn-expand-list {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-expand-list:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.btn-expand-list .chevron {
+  transition: transform 0.2s ease;
+}
+
+.btn-expand-list.expanded .chevron {
+  transform: rotate(180deg);
+}
+
+/* Collapsible cards transition class */
+.project-card.utility-item {
+  display: none;
+}
+
+.project-card.utility-item.show {
+  display: flex;
+}
+
+/* ==========================================================================
+   FILE: inspect.log (DETAIL VIEWER)
+   ========================================================================== */
+
+.log-empty-state {
+  max-width: 680px;
+  margin: 40px auto 0 auto;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  padding: 40px;
+}
+
+.log-prefix {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.log-warning {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.btn-primary-cli {
+  background-color: var(--text-primary);
+  color: var(--bg-main);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.btn-primary-cli:hover {
+  opacity: 0.9;
+}
+
+/* Full Details sheet (GitHub-like PR/issue page) */
+.project-details-view {
+  max-width: 800px;
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.details-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.details-title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.details-project-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.details-category-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  border: 1px solid var(--border-color);
+  padding: 3px 8px;
+  border-radius: 12px;
+  width: max-content;
+  color: var(--text-secondary);
+}
+
+.details-links-box {
+  display: flex;
+  gap: 8px;
+}
+
+.detail-btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.detail-btn-link.primary {
+  background-color: var(--text-primary);
+  color: var(--bg-main);
+}
+
+.detail-btn-link.primary:hover {
+  opacity: 0.9;
+}
+
+.detail-btn-link.secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.detail-btn-link.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-hover);
+}
+
+/* Detail Content columns */
+.details-content-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 24px;
+}
+
+.details-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.details-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.block-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.block-text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Side Column stack list */
+.details-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tech-tags-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tech-tags-group span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-primary);
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Helper utility */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .workspace-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 24px 20px;
+    left: auto;
+  }
+  
+  .editor-area {
+    margin-left: 0;
+    max-width: 100%;
+  }
+  
+  .editor-panel {
+    padding: 24px;
+  }
+  
+  .details-content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .details-side-col {
+    order: -1;
+  }
+}
+
+@media (max-width: 576px) {
+  .md-h2 {
+    font-size: 1.4rem;
+  }
+  
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .projects-list-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .details-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .details-links-box {
+    width: 100%;
+  }
+  
+  .detail-btn-link {
+    flex-grow: 1;
+    justify-content: center;
+  }
+}

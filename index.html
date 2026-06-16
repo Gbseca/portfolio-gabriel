@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio profissional de Gabriel Fonseca. Desenvolvedor Full-Stack focado em automações comerciais, integrações de Inteligência Artificial (Gemini/Groq), agendamentos e CRMs.">
+  <meta name="author" content="Gabriel Fonseca da Silva">
+  <link rel="icon" type="image/x-icon" href="assets/profile.jpg">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gabrielseca.is-a.dev/">
+  <meta property="og:title" content="Gabriel Fonseca | Portfólio de Engenharia & Automações">
+  <meta property="og:description" content="Desenvolvedor Full-Stack focado em automações comerciais, integrações de IA, agendamentos e CRMs.">
+  <meta property="og:image" content="assets/profile.jpg">
+
+  <title>gabrielseca.is-a.dev</title>
+  
+  <!-- Fonts: Inter and Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Main Container resembling a split editor/workspace layout -->
+  <div class="workspace-container">
+    
+    <!-- Sidebar: File Explorer / Profile Info -->
+    <aside class="sidebar" role="complementary">
+      
+      <!-- Profile section -->
+      <div class="profile-header">
+        <div class="avatar-wrapper">
+          <img src="assets/profile.jpg" alt="Gabriel Fonseca" class="avatar" id="avatar-img">
+        </div>
+        <div class="identity">
+          <h1 class="name">Gabriel Fonseca</h1>
+          <p class="role">Software Engineer</p>
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span class="status-text">ready_to_code</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- File Navigation (styled like IDE file tree) -->
+      <nav class="file-tree" aria-label="Navegador do Editor" id="nav-tabs" role="tablist">
+        <div class="tree-header">// workspace_files</div>
+        
+        <button class="tree-item active" id="tab-btn-resumo" data-tab="resumo" aria-controls="section-resumo" aria-selected="true" role="tab">
+          <span class="file-icon markdown-icon">M↓</span>
+          <span class="file-name">about.md</span>
+        </button>
+        
+        <button class="tree-item" id="tab-btn-trabalhos" data-tab="trabalhos" aria-controls="section-trabalhos" aria-selected="false" role="tab">
+          <span class="file-icon json-icon">{}</span>
+          <span class="file-name">projects.json</span>
+        </button>
+        
+        <button class="tree-item" id="tab-btn-detalhes" data-tab="detalhes" aria-controls="section-detalhes" aria-selected="false" role="tab">
+          <span class="file-icon log-icon">LOG</span>
+          <span class="file-name">inspect.log</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Contacts / Environment block -->
+      <div class="sidebar-env-block">
+        <div class="tree-header">// config_vars</div>
+        <div class="env-list">
+          <div class="env-item">
+            <span class="env-key">EMAIL=</span>
+            <a href="mailto:sgabriel4098@gmail.com" class="env-val" id="env-email" target="_blank" rel="noopener noreferrer">sgabriel4098@gmail.com</a>
+          </div>
+          <div class="env-item">
+            <span class="env-key">LINKEDIN=</span>
+            <a href="https://www.linkedin.com/in/gabriel-fonseca-da-silva-210369321/" class="env-val" id="env-linkedin" target="_blank" rel="noopener noreferrer">gabriel-fonseca</a>
+          </div>
+          <div class="env-item">
+            <span class="env-key">WHATSAPP=</span>
+            <a href="https://wa.me/5521972969475" class="env-val" id="env-whatsapp" target="_blank" rel="noopener noreferrer">(21)97296-9475</a>
+          </div>
+        </div>
+        <div class="copyright-tag">&copy; 2026 Gbseca. info --all</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel (IDE Editor area) -->
+    <main class="editor-area">
+      
+      <!-- Editor Tab Header (Shows open tab name in top bar) -->
+      <header class="editor-tab-header">
+        <div class="tab-indicator active" id="editor-active-tab-title">about.md</div>
+        <div class="terminal-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </header>
+
+      <!-- Panel: about.md -->
+      <section id="section-resumo" class="editor-panel active" role="tabpanel" aria-labelledby="tab-btn-resumo">
+        <div class="markdown-body">
+          <h2 class="md-h2"># Engenharia de Software focada em Resultados</h2>
+          
+          <p class="md-p">
+            Sou desenvolvedor com foco na criação de <strong>automações comerciais</strong>, <strong>sistemas de agendamento</strong>, <strong>CRMs</strong> e <strong>pipelines de leads</strong>. Minha abordagem de engenharia consiste em estruturar ferramentas estáveis que simplificam o fluxo operacional e trazem utilidade real para pequenos e médios negócios.
+          </p>
+
+          <p class="md-p">
+            Prezo pela organização de código, controle transparente de variáveis de ambiente, bancos de dados relacionais consistentes e segurança. Meus projetos cobrem desde backend robusto com automação de mensagens até dashboards interativos.
+          </p>
+
+          <h3 class="md-h3">## Stack Principal</h3>
+          <div class="tech-stack-container">
+            <div class="tech-row">
+              <span class="tech-category">Front-end:</span>
+              <span class="tech-items">Next.js, React, TypeScript, Vite, Tailwind CSS, Radix UI</span>
+            </div>
+            <div class="tech-row">
+              <span class="tech-category">Back-end:</span>
+              <span class="tech-items">Node.js, Express, Baileys, WebSocket, Serverless Functions</span>
+            </div>
+            <div class="tech-row">
+              <span class="tech-category">Banco / Infra:</span>
+              <span class="tech-items">Supabase (PostgreSQL), Railway, Netlify Blobs, Docker</span>
+            </div>
+            <div class="tech-row">
+              <span class="tech-category">Integrações:</span>
+              <span class="tech-items">Gemini API, Groq API, Playwright (Scraping/Automação)</span>
+            </div>
+          </div>
+
+          <h3 class="md-h3">## Estatísticas</h3>
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-num">14+</div>
+              <div class="stat-label">Repositórios Construídos</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">05+</div>
+              <div class="stat-label">Bancos Supabase Provisionados</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">100%</div>
+              <div class="stat-label">Código Limpo & Documentado</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel: projects.json -->
+      <section id="section-trabalhos" class="editor-panel" role="tabpanel" aria-labelledby="tab-btn-trabalhos">
+        <div class="projects-control-bar">
+          <div class="filter-group">
+            <button class="filter-tag active" data-filter="all" id="filter-all">all</button>
+            <button class="filter-tag" data-filter="principal" id="filter-principal">featured</button>
+            <button class="filter-tag" data-filter="secundario" id="filter-secundario">commercials</button>
+            <button class="filter-tag" data-filter="utilitario" id="filter-utilitario">utilities</button>
+          </div>
+        </div>
+
+        <!-- Clean Developer Grid -->
+        <div class="projects-list-grid" id="projects-grid" aria-live="polite">
+          <!-- Dynamically inserted by app.js -->
+        </div>
+
+        <!-- Retractable section wrapper -->
+        <div class="expand-wrapper" id="expand-container">
+          <button class="btn-expand-list" id="btn-toggle-utilities" aria-expanded="false">
+            <span>Mostrar Projetos Secundários/Utilitários</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Panel: inspect.log -->
+      <section id="section-detalhes" class="editor-panel" role="tabpanel" aria-labelledby="tab-btn-detalhes">
+        
+        <!-- Empty log state -->
+        <div class="log-empty-state" id="detail-placeholder">
+          <div class="log-prefix">$ cat inspect.log</div>
+          <p class="log-warning">// Nenhuma ficha selecionada. Selecione um projeto no arquivo projects.json para rodar a inspeção.</p>
+          <button class="btn-primary-cli" id="btn-go-to-works">Ir para projects.json</button>
+        </div>
+
+        <!-- Project Detail Sheet (GitHub/Vercel styling) -->
+        <article class="project-details-view hidden" id="project-detail-viewer">
+          
+          <div class="details-top-bar">
+            <div class="details-title-box">
+              <h3 class="details-project-name" id="detail-name">Nome do Projeto</h3>
+              <span class="details-category-badge" id="detail-category-badge">Principal</span>
+            </div>
+            <div class="details-links-box" id="detail-links">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="details-content-grid">
+            <div class="details-main-col">
+              <div class="details-block">
+                <div class="block-title">// 01. O QUE FAZ O PROJETO</div>
+                <p class="block-text" id="detail-description">Descrição longa.</p>
+              </div>
+
+              <div class="details-block">
+                <div class="block-title">// 02. PAPEL DE ENGENHARIA E IMPLEMENTAÇÃO</div>
+                <p class="block-text" id="detail-role">Descrição do papel.</p>
+              </div>
+
+              <div class="details-block">
+                <div class="block-title">// 03. INTEGRAÇÃO SUPABASE & DEPLOY</div>
+                <p class="block-text" id="detail-integration">Descrição de integração.</p>
+              </div>
+            </div>
+
+            <aside class="details-side-col">
+              <div class="details-block">
+                <div class="block-title">// TECNOLOGIAS</div>
+                <div class="tech-tags-group" id="detail-stack-tags">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+            </aside>
+          </div>
+
+        </article>
+      </section>
+
+    </main>
+    
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
