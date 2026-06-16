@@ -3,253 +3,206 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfólio de Gabriel Fonseca. Desenvolvimento de sistemas web, automações comerciais com IA, sistemas de agendamento e sites institucionais sob medida.">
+  <meta name="description" content="Gabriel Fonseca — Desenvolvedor de sistemas web, automações comerciais com IA, sistemas de agendamento e sites sob medida para o seu negócio.">
   <meta name="author" content="Gabriel Fonseca da Silva">
   <link rel="icon" type="image/x-icon" href="assets/profile.jpg">
-  
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gabrielseca.is-a.dev/">
-  <meta property="og:title" content="Gabriel Fonseca | Sistemas Web & Automações">
-  <meta property="og:description" content="Desenvolvimento de sistemas web, automações comerciais com IA, sistemas de agendamento e sites institucionais sob medida.">
+  <meta property="og:title" content="Gabriel Fonseca | Desenvolvedor Web">
+  <meta property="og:description" content="Sistemas web, automações com IA e sites sob medida para o seu negócio.">
   <meta property="og:image" content="assets/profile.jpg">
 
-  <title>Gabriel Fonseca | Sistemas Web & Automações</title>
-  
-  <!-- Google Fonts: Inter and Outfit -->
+  <title>Gabriel Fonseca | Desenvolvedor Web</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-  <!-- Premium Subtle Gradients for visual warmth and depth -->
-  <div class="light-ambient-glow primary-glow"></div>
-  <div class="light-ambient-glow secondary-glow"></div>
+  <!-- ====== NAVBAR ====== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar-inner">
+      <a href="#inicio" class="navbar-brand">gabriel<span style="color: var(--accent);">.</span>dev</a>
 
-  <!-- Main Website Container -->
-  <div class="site-wrapper">
-    
-    <!-- Left Profile & Nav Panel (Sidebar) -->
-    <aside class="sidebar-aside" role="complementary">
-      <div class="profile-card">
-        <div class="avatar-ring">
-          <img src="assets/profile.jpg" alt="Gabriel Fonseca" class="avatar-pic">
+      <ul class="navbar-links" id="navbar-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li class="mobile-cta-item" style="display:none;">
+          <a href="https://wa.me/5521972969475" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Fale Comigo</a>
+        </li>
+      </ul>
+
+      <a href="https://wa.me/5521972969475" class="navbar-cta desktop-only" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        Fale Comigo
+      </a>
+
+      <button class="navbar-toggle" id="navbar-toggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="inicio">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Disponível para novos projetos
         </div>
-        <div class="profile-meta">
-          <h1 class="profile-name">Gabriel Fonseca</h1>
-          <p class="profile-subtitle">Sistemas Web & Automações</p>
-          <div class="availability-badge">
-            <span class="pulse-dot"></span>
-            <span class="badge-text">Disponível para novos projetos</span>
+        <h1 class="hero-title">
+          Transformo ideias em <span class="accent">sistemas que vendem.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Crio automações de WhatsApp com inteligência artificial, sistemas de agendamento online e sites profissionais que trazem resultados reais para o seu negócio.
+        </p>
+        <div class="hero-actions">
+          <a href="#projetos" class="btn btn-primary">Ver Meus Projetos</a>
+          <a href="https://wa.me/5521972969475" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Solicitar Orçamento</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrapper">
+        <img src="assets/profile.jpg" alt="Gabriel Fonseca" class="hero-photo">
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SERVIÇOS ====== -->
+  <section class="section services-section" id="servicos">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">Serviços</span>
+        <h2 class="section-title">O que eu posso criar para o seu negócio</h2>
+        <p class="section-desc">Soluções sob medida que simplificam processos, economizam tempo e aumentam suas vendas.</p>
+      </div>
+
+      <div class="services-grid reveal-stagger">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           </div>
+          <h3>Automação de WhatsApp</h3>
+          <p>Robôs inteligentes que respondem seus clientes automaticamente usando inteligência artificial, qualificam contatos e organizam suas vendas — tudo pelo WhatsApp.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <h3>Sistemas de Agendamento</h3>
+          <p>Plataformas de reservas online para barbearias, clínicas e salões. Seus clientes marcam horário pela internet e você gerencia tudo por um painel simples.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <h3>Sites e Landing Pages</h3>
+          <p>Sites profissionais, portfólios para fotógrafos, convites digitais para eventos e páginas de vendas otimizadas para atrair mais clientes pelo Google.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PROJETOS ====== -->
+  <section class="section" id="projetos">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">Projetos</span>
+        <h2 class="section-title">Trabalhos que já entreguei</h2>
+        <p class="section-desc">Alguns dos sistemas e sites que desenvolvi para empresas e profissionais autônomos.</p>
+      </div>
+
+      <div class="projects-grid reveal-stagger" id="projects-grid">
+        <!-- Rendered by app.js -->
+      </div>
+
+      <div class="show-more-wrapper" id="show-more-wrapper">
+        <button class="btn-show-more" id="btn-show-more">
+          <span>Ver todos os projetos</span>
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PROJECT DETAIL MODAL ====== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card" id="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Fechar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-header">
+        <span class="modal-category" id="modal-category">Destaque</span>
+        <h2 class="modal-title" id="modal-title">Nome do Projeto</h2>
+        <div class="modal-links" id="modal-links">
+          <!-- Populated by JS -->
         </div>
       </div>
 
-      <!-- Navigation tabs -->
-      <nav class="nav-links" id="nav-tabs" role="tablist" aria-label="Navegação Principal">
-        <button class="nav-btn active" id="tab-btn-resumo" data-tab="resumo" aria-controls="section-resumo" aria-selected="true" role="tab">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path></svg>
-          <span>Início</span>
-        </button>
-        <button class="nav-btn" id="tab-btn-trabalhos" data-tab="trabalhos" aria-controls="section-trabalhos" aria-selected="false" role="tab">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-          <span>Projetos & Portfólio</span>
-        </button>
-        <button class="nav-btn" id="tab-btn-detalhes" data-tab="detalhes" aria-controls="section-detalhes" aria-selected="false" role="tab">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          <span>Ficha Técnica</span>
-        </button>
-      </nav>
-
-      <!-- Contact Info Section -->
-      <div class="sidebar-contact-info">
-        <h2 class="contact-title-micro">Fale Comigo</h2>
-        <div class="contact-links-stack">
-          <a href="mailto:sgabriel4098@gmail.com" class="contact-item" target="_blank" rel="noopener noreferrer" title="E-mail">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span>sgabriel4098@gmail.com</span>
-          </a>
-          <a href="https://www.linkedin.com/in/gabriel-fonseca-da-silva-210369321/" class="contact-item" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://wa.me/5521972969475" class="contact-item" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            <span>(21) 97296-9475</span>
-          </a>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4 class="modal-section-title">Sobre o projeto</h4>
+          <p class="modal-section-text" id="modal-description">Descrição.</p>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-section-title">O que eu fiz</h4>
+          <p class="modal-section-text" id="modal-role">Papel.</p>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-section-title">Infraestrutura e integrações</h4>
+          <p class="modal-section-text" id="modal-integration">Integrações.</p>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-section-title">Tecnologias utilizadas</h4>
+          <div class="modal-tech-list" id="modal-techs">
+            <!-- Populated by JS -->
+          </div>
         </div>
       </div>
-    </aside>
-
-    <!-- Main Content Container -->
-    <main class="main-content-panel">
-      
-      <!-- Section: Início (Home & Services) -->
-      <section id="section-resumo" class="view-panel active" role="tabpanel" aria-labelledby="tab-btn-resumo">
-        <div class="hero-block">
-          <span class="hero-tag">Soluções Digitais & Automações</span>
-          <h2 class="hero-title">Desenvolvo sistemas que aceleram suas vendas e organizam seu negócio.</h2>
-          <p class="hero-description">
-            Minha missão é construir ferramentas práticas, de alta performance e visual impecável. Crio desde automações com IA para responder seus clientes no WhatsApp até portfólios mobile-first e sistemas de agendamento online completos. 
-          </p>
-          <div class="hero-actions">
-            <button class="btn-action primary-btn" id="btn-call-works">Ver Meus Projetos</button>
-            <a href="https://wa.me/5521972969475" class="btn-action secondary-btn" target="_blank" rel="noopener noreferrer">Solicitar um Orçamento</a>
-          </div>
-        </div>
-
-        <!-- Services Section (Business benefits focus) -->
-        <div class="services-block-container">
-          <h3 class="block-section-title">O que posso construir para sua empresa</h3>
-          
-          <div class="services-grid">
-            <div class="service-card">
-              <div class="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-              </div>
-              <h4 class="service-title">Automações & WhatsApp com IA</h4>
-              <p class="service-text">
-                Atendimento automático e inteligente no WhatsApp. Configuração de robôs (Gemini/Groq) que respondem clientes, qualificam contatos e atualizam painéis de vendas (Kanban) automaticamente.
-              </p>
-            </div>
-
-            <div class="service-card">
-              <div class="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              </div>
-              <h4 class="service-title">Sistemas de Agendamento</h4>
-              <p class="service-text">
-                Plataformas de reservas online para barbearias, clínicas ou salões de beleza. Seus clientes reservam um horário de forma automática e você gerencia tudo a partir de um painel de controle simples.
-              </p>
-            </div>
-
-            <div class="service-card">
-              <div class="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
-              </div>
-              <h4 class="service-title">Páginas de Vendas (Landing Pages)</h4>
-              <p class="service-text">
-                Sites de portfólio mobile-first para fotógrafos e profissionais autônomos, convites digitais dinâmicos (chá de casa nova, eventos) e páginas de vendas rápidas com otimização completa para Google (SEO).
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Direct proof metrics -->
-        <div class="metrics-row">
-          <div class="metric-box">
-            <span class="metric-val">14+</span>
-            <span class="metric-tag">Projetos Executados</span>
-          </div>
-          <div class="metric-box">
-            <span class="metric-val">100%</span>
-            <span class="metric-tag">Foco em Experiência do Usuário</span>
-          </div>
-          <div class="metric-box">
-            <span class="metric-val">Nativo</span>
-            <span class="metric-tag">Desenvolvimento Mobile-First</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Trabalhos (Portfólio Grid) -->
-      <section id="section-trabalhos" class="view-panel" role="tabpanel" aria-labelledby="tab-btn-trabalhos">
-        <div class="panel-header-block">
-          <span class="panel-tag-micro">Portfólio</span>
-          <h2 class="panel-heading-title">Projetos que desenvolvi</h2>
-          <p class="panel-header-desc">
-            Explore abaixo os meus sistemas em produção. Filtre pelas categorias para visualizar projetos específicos.
-          </p>
-        </div>
-
-        <div class="grid-controls-row">
-          <div class="filter-tab-bar">
-            <button class="filter-tag-btn active" data-filter="all" id="filter-all">Todos os Projetos</button>
-            <button class="filter-tag-btn" data-filter="principal" id="filter-principal">Destaques Técnicos</button>
-            <button class="filter-tag-btn" data-filter="secundario" id="filter-secundario">Comerciais & Dashboards</button>
-            <button class="filter-tag-btn" data-filter="utilitario" id="filter-utilitario">Ferramentas & Utilitários</button>
-          </div>
-        </div>
-
-        <!-- Elegant Grid Layout -->
-        <div class="portfolio-cards-grid" id="projects-grid" aria-live="polite">
-          <!-- Dynamically inserted by app.js -->
-        </div>
-
-        <!-- Toggle for utilities/secondary items on "all" view -->
-        <div class="expand-btn-wrapper" id="expand-container">
-          <button class="btn-toggle-show-more" id="btn-toggle-utilities" aria-expanded="false">
-            <span>Mostrar Projetos Secundários & Utilitários</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-        </div>
-      </section>
-
-      <!-- Section: Ficha Técnica (Project details viewer) -->
-      <section id="section-detalhes" class="view-panel" role="tabpanel" aria-labelledby="tab-btn-detalhes">
-        
-        <!-- Placeholder when no project is loaded -->
-        <div class="viewer-placeholder-block" id="detail-placeholder">
-          <div class="placeholder-icon-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          </div>
-          <h3 class="placeholder-title">Nenhum projeto selecionado</h3>
-          <p class="placeholder-description">
-            Vá até a aba de <strong>Projetos & Portfólio</strong> e selecione um projeto para visualizar a análise completa de engenharia, stacks envolvidas e integrações com o Supabase.
-          </p>
-          <button class="btn-action primary-btn" id="btn-go-to-works">Ir para Portfólio</button>
-        </div>
-
-        <!-- Detailed Project Viewer (Clean styling) -->
-        <article class="project-details-sheet hidden" id="project-detail-viewer">
-          
-          <div class="details-top-nav-bar">
-            <div class="details-main-title-wrap">
-              <h3 class="details-headline" id="detail-name">Nome do Projeto</h3>
-              <span class="details-category" id="detail-category-badge">Principal</span>
-            </div>
-            <div class="details-action-links" id="detail-links">
-              <!-- Dynamically populated -->
-            </div>
-          </div>
-
-          <div class="details-layout-columns">
-            <div class="details-primary-column">
-              <div class="details-info-section">
-                <h4 class="details-info-header">O que o projeto faz?</h4>
-                <p class="details-info-body" id="detail-description">Descrição completa do que faz.</p>
-              </div>
-
-              <div class="details-info-section">
-                <h4 class="details-info-header">Minha contribuição e soluções de engenharia</h4>
-                <p class="details-info-body" id="detail-role">Descrição do papel.</p>
-              </div>
-
-              <div class="details-info-section">
-                <h4 class="details-info-header">Infraestrutura, Integrações & Banco de Dados</h4>
-                <p class="details-info-body" id="detail-integration">Descrição da infraestrutura.</p>
-              </div>
-            </div>
-
-            <aside class="details-secondary-column">
-              <div class="details-info-section">
-                <h4 class="details-info-header">Linguagens & Stacks</h4>
-                <div class="tech-tags-list" id="detail-stack-tags">
-                  <!-- Dynamically populated -->
-                </div>
-              </div>
-            </aside>
-          </div>
-
-        </article>
-      </section>
-
-    </main>
-    
+    </div>
   </div>
+
+  <!-- ====== CONTATO / FOOTER ====== -->
+  <footer class="contact-section" id="contato">
+    <div class="contact-inner">
+      <div class="contact-header reveal">
+        <h2>Vamos trabalhar juntos?</h2>
+        <p>Se você precisa de um sistema, site ou automação, me chama. Estou disponível para novos projetos.</p>
+      </div>
+
+      <div class="contact-links reveal">
+        <a href="https://wa.me/5521972969475" class="contact-link-card" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          (21) 97296-9475
+        </a>
+        <a href="mailto:sgabriel4098@gmail.com" class="contact-link-card" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          sgabriel4098@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/gabriel-fonseca-da-silva-210369321/" class="contact-link-card" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          LinkedIn
+        </a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Gabriel Fonseca. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>
