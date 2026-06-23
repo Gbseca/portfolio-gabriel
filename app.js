@@ -1,326 +1,486 @@
-/**
- * PORTFOLIO CONTROLLER — GABRIEL FONSECA
- * Scroll-based layout with modal details, no tabs.
- */
+/* ============================================================
+   Gabriel Fonseca — Portfolio · Main JavaScript
+   ============================================================ */
 
-// ── State ──
-let projectsData = [];
-let showAllProjects = false;
+(function () {
+  'use strict';
 
-// ── DOM References ──
-const navbar = document.getElementById('navbar');
-const navbarToggle = document.getElementById('navbar-toggle');
-const navbarLinks = document.getElementById('navbar-links');
-const projectsGrid = document.getElementById('projects-grid');
-const btnShowMore = document.getElementById('btn-show-more');
-const showMoreWrapper = document.getElementById('show-more-wrapper');
+  /* ----------------------------------------------------------
+     1. CUSTOM CURSOR
+  ---------------------------------------------------------- */
+  function initCustomCursor() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
 
-// Modal
-const modalOverlay = document.getElementById('modal-overlay');
-const modalCard = document.getElementById('modal-card');
-const modalClose = document.getElementById('modal-close');
-const modalCategory = document.getElementById('modal-category');
-const modalTitle = document.getElementById('modal-title');
-const modalDescription = document.getElementById('modal-description');
-const modalRole = document.getElementById('modal-role');
-const modalIntegration = document.getElementById('modal-integration');
-const modalTechs = document.getElementById('modal-techs');
-const modalLinks = document.getElementById('modal-links');
+    const cursor = document.getElementById('custom-cursor');
+    if (!cursor) return;
 
-// ── Init ──
-document.addEventListener('DOMContentLoaded', () => {
-  loadProjects();
-  setupNavbar();
-  setupModal();
-  setupShowMore();
-  setupScrollReveal();
-});
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
 
-/* ==========================================================================
-   DATA LOADING
-   ========================================================================== */
+    const interactiveSelectors = 'a, button, .project-card, .service-card';
 
-async function loadProjects() {
-  try {
-    const res = await fetch('projects.json');
-    if (!res.ok) throw new Error('Failed to load');
-    projectsData = await res.json();
-    renderProjects();
-  } catch (err) {
-    console.error('Erro:', err);
-    projectsGrid.innerHTML = `
-      <div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #ef4444; border: 1px solid rgba(239,68,68,0.15); border-radius: 12px; background: rgba(239,68,68,0.03);">
-        <p>Não foi possível carregar os projetos.</p>
-      </div>
-    `;
-  }
-}
-
-/* ==========================================================================
-   PROJECT RENDERING
-   ========================================================================== */
-
-function renderProjects() {
-  projectsGrid.innerHTML = '';
-
-  // Separate featured (principal) from the rest
-  const featured = projectsData.filter(p => p.category === 'principal');
-  const others = projectsData.filter(p => p.category !== 'principal');
-
-  // Always show featured projects
-  featured.forEach(project => {
-    projectsGrid.appendChild(createProjectCard(project, true));
-  });
-
-  // Others are hidden by default
-  others.forEach(project => {
-    const card = createProjectCard(project, false);
-    if (!showAllProjects) {
-      card.classList.add('hidden-card');
-    }
-    projectsGrid.appendChild(card);
-  });
-
-  // Show/hide the "show more" button
-  if (others.length === 0) {
-    showMoreWrapper.classList.add('hidden');
-  } else {
-    showMoreWrapper.classList.remove('hidden');
-    updateShowMoreButton();
-  }
-}
-
-function createProjectCard(project, isFeatured) {
-  const card = document.createElement('article');
-  card.className = `project-card${isFeatured ? ' featured' : ''}`;
-  card.setAttribute('role', 'button');
-  card.setAttribute('tabindex', '0');
-  card.setAttribute('aria-label', `Ver detalhes de ${project.name}`);
-
-  const techsHtml = project.stack
-    .slice(0, 3)
-    .map(t => `<span class="tech-pill">${t}</span>`)
-    .join('');
-
-  const extraCount = project.stack.length > 3 ? `<span class="tech-pill">+${project.stack.length - 3}</span>` : '';
-
-  card.innerHTML = `
-    <div class="project-card-body">
-      <span class="project-card-category">${categoryLabel(project.category)}</span>
-      <h3 class="project-card-name">${project.name}</h3>
-      <p class="project-card-desc">${project.description}</p>
-      <div class="project-card-footer">
-        <div class="project-card-techs">
-          ${techsHtml}${extraCount}
-        </div>
-        <div class="project-card-arrow">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Click opens modal
-  card.addEventListener('click', () => openModal(project));
-  card.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openModal(project);
-    }
-  });
-
-  return card;
-}
-
-function categoryLabel(cat) {
-  switch (cat) {
-    case 'principal': return 'Destaque';
-    case 'secundario': return 'Comercial';
-    case 'utilitario': return 'Ferramenta';
-    default: return cat;
-  }
-}
-
-/* ==========================================================================
-   SHOW MORE / LESS
-   ========================================================================== */
-
-function setupShowMore() {
-  btnShowMore.addEventListener('click', () => {
-    showAllProjects = !showAllProjects;
-    updateShowMoreButton();
-
-    const hiddenCards = document.querySelectorAll('.project-card.hidden-card');
-    hiddenCards.forEach(card => {
-      if (showAllProjects) {
-        card.classList.add('visible');
-      } else {
-        card.classList.remove('visible');
+    document.addEventListener('mouseenter', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        cursor.classList.add('cursor-hover');
       }
-    });
-  });
-}
+    }, true);
 
-function updateShowMoreButton() {
-  const label = btnShowMore.querySelector('span');
-  if (showAllProjects) {
-    label.textContent = 'Mostrar menos';
-    btnShowMore.classList.add('expanded');
-  } else {
-    label.textContent = 'Ver todos os projetos';
-    btnShowMore.classList.remove('expanded');
-  }
-}
-
-/* ==========================================================================
-   PROJECT DETAIL MODAL
-   ========================================================================== */
-
-function setupModal() {
-  // Close on X button
-  modalClose.addEventListener('click', closeModal);
-
-  // Close on overlay click (outside modal card)
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) closeModal();
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
-}
-
-function openModal(project) {
-  // Populate content
-  modalCategory.textContent = categoryLabel(project.category);
-  modalTitle.textContent = project.name;
-  modalDescription.innerHTML = project.detailDescription;
-  modalRole.innerHTML = project.myRole;
-  modalIntegration.innerHTML = project.integration || 'Sem integrações especiais.';
-
-  // Techs
-  modalTechs.innerHTML = '';
-  project.stack.forEach(tech => {
-    const span = document.createElement('span');
-    span.className = 'modal-tech-item';
-    span.textContent = tech;
-    modalTechs.appendChild(span);
-  });
-
-  // Links
-  modalLinks.innerHTML = '';
-  if (project.demoUrl) {
-    const a = document.createElement('a');
-    a.href = project.demoUrl;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.className = 'modal-link primary';
-    a.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-      Ver projeto
-    `;
-    modalLinks.appendChild(a);
-  }
-  if (project.githubUrl) {
-    const a = document.createElement('a');
-    a.href = project.githubUrl;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.className = 'modal-link secondary';
-    a.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      GitHub
-    `;
-    modalLinks.appendChild(a);
+    document.addEventListener('mouseleave', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        cursor.classList.remove('cursor-hover');
+      }
+    }, true);
   }
 
-  // Show modal
-  modalOverlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
+  /* ----------------------------------------------------------
+     2. PARTICLES CANVAS
+  ---------------------------------------------------------- */
+  function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
 
-function closeModal() {
-  modalOverlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const PARTICLE_COUNT = 50;
 
-/* ==========================================================================
-   NAVBAR — SCROLL EFFECT & MOBILE TOGGLE
-   ========================================================================== */
-
-function setupNavbar() {
-  // Scroll effect
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+    function resize() {
+      const parent = canvas.parentElement;
+      canvas.width = parent.clientWidth;
+      canvas.height = parent.clientHeight;
     }
-    lastScroll = currentScroll;
-  }, { passive: true });
 
-  // Mobile toggle
-  navbarToggle.addEventListener('click', () => {
-    navbarLinks.classList.toggle('open');
-  });
-
-  // Close mobile menu on link click
-  navbarLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navbarLinks.classList.remove('open');
-    });
-  });
-
-  // Active link highlight on scroll
-  setupActiveNavHighlight();
-}
-
-function setupActiveNavHighlight() {
-  const sections = document.querySelectorAll('section[id], footer[id]');
-  const navItems = navbarLinks.querySelectorAll('a');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        navItems.forEach(item => {
-          if (item.getAttribute('href') === `#${id}`) {
-            item.classList.add('active');
-          } else {
-            item.classList.remove('active');
-          }
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 1,
+          speedX: (Math.random() - 0.5) * 0.6,
+          speedY: (Math.random() - 0.5) * 0.6,
+          opacity: Math.random() * 0.3 + 0.1,
         });
       }
+    }
+
+    function update() {
+      for (const p of particles) {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(37, 99, 235, ' + p.opacity + ')';
+        ctx.fill();
+      }
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    resize();
+    createParticles();
+    loop();
+
+    window.addEventListener('resize', () => {
+      resize();
+      createParticles();
     });
-  }, {
-    rootMargin: '-30% 0px -60% 0px',
-    threshold: 0
-  });
+  }
 
-  sections.forEach(section => observer.observe(section));
-}
+  /* ----------------------------------------------------------
+     3. TYPEWRITER EFFECT
+  ---------------------------------------------------------- */
+  function initTypewriter() {
+    const el = document.getElementById('typewriter');
+    if (!el) return;
 
-/* ==========================================================================
-   SCROLL REVEAL ANIMATIONS
-   ========================================================================== */
+    const phrases = [
+      'Automações inteligentes para WhatsApp com IA.',
+      'Sistemas de agendamento que funcionam sozinhos.',
+      'Sites profissionais que atraem clientes.',
+      'Soluções sob medida para o seu negócio.',
+    ];
 
-function setupScrollReveal() {
-  const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+    el.classList.add('typewriter-cursor');
+
+    function tick() {
+      const current = phrases[phraseIndex];
+
+      if (!isDeleting) {
+        charIndex++;
+        el.textContent = current.substring(0, charIndex);
+
+        if (charIndex === current.length) {
+          isDeleting = true;
+          setTimeout(tick, 2000);
+          return;
+        }
+        setTimeout(tick, 60);
+      } else {
+        charIndex--;
+        el.textContent = current.substring(0, charIndex);
+
+        if (charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(tick, 500);
+          return;
+        }
+        setTimeout(tick, 30);
+      }
+    }
+
+    tick();
+  }
+
+  /* ----------------------------------------------------------
+     4. NAVBAR SCROLL EFFECT
+  ---------------------------------------------------------- */
+  function initNavbarScroll() {
+    const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
+
+  /* ----------------------------------------------------------
+     5. MOBILE MENU TOGGLE
+  ---------------------------------------------------------- */
+  function initMobileMenu() {
+    const toggle = document.getElementById('navbar-toggle');
+    const links = document.getElementById('navbar-links');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+
+    links.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        links.classList.remove('open');
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     6. ACTIVE NAV HIGHLIGHT
+  ---------------------------------------------------------- */
+  function initActiveNav() {
+    const sections = document.querySelectorAll('section[id]');
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('#navbar-links a').forEach((link) => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -50% 0px' }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  /* ----------------------------------------------------------
+     7. SCROLL REVEAL (fade-up)
+  ---------------------------------------------------------- */
+  let fadeUpObserver;
+
+  function initScrollReveal() {
+    fadeUpObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeUpObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    document.querySelectorAll('.fade-up').forEach((el) => {
+      fadeUpObserver.observe(el);
+    });
+  }
+
+  function observeNewFadeUps() {
+    if (!fadeUpObserver) return;
+    document.querySelectorAll('.fade-up:not(.visible)').forEach((el) => {
+      fadeUpObserver.observe(el);
+    });
+  }
+
+  /* ----------------------------------------------------------
+     8. PROJECT LOADING & RENDERING
+  ---------------------------------------------------------- */
+  const CATEGORY_LABELS = {
+    principal: 'Destaque',
+    secundario: 'Comercial',
+    utilitario: 'Ferramenta',
+  };
+
+  let allProjects = [];
+  let showAllProjects = false;
+
+  function buildProjectCard(project, isFeatured, forceShow) {
+    const hiddenClass = !isFeatured && !forceShow ? 'hidden-card' : '';
+    const featuredClass = isFeatured ? 'featured' : '';
+    const categoryLabel = CATEGORY_LABELS[project.category] || project.category;
+
+    const techs = project.techs || [];
+    const visibleTechs = techs.slice(0, 3);
+    const remaining = techs.length - 3;
+
+    let techsHTML = visibleTechs
+      .map((t) => '<span class="tech-pill">' + t + '</span>')
+      .join('');
+    if (remaining > 0) {
+      techsHTML += '<span class="tech-pill">+' + remaining + '</span>';
+    }
+
+    const card = document.createElement('article');
+    card.className = ['project-card', 'fade-up', featuredClass, hiddenClass]
+      .filter(Boolean)
+      .join(' ');
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+
+    card.innerHTML =
+      '<span class="project-card-category">' + categoryLabel + '</span>' +
+      '<h3 class="project-card-name">' + project.name + '</h3>' +
+      '<p class="project-card-desc">' + project.description + '</p>' +
+      '<div class="project-card-footer">' +
+        '<div class="project-card-techs">' + techsHTML + '</div>' +
+        '<div class="project-card-arrow">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<line x1="5" y1="12" x2="19" y2="12"></line>' +
+            '<polyline points="12 5 19 12 12 19"></polyline>' +
+          '</svg>' +
+        '</div>' +
+      '</div>';
+
+    card.addEventListener('click', () => openModal(project));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') openModal(project);
+    });
+
+    return card;
+  }
+
+  function renderProjects(projects) {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    const featured = projects.filter((p) => p.category === 'principal');
+    const others = projects.filter((p) => p.category !== 'principal');
+
+    featured.forEach((p) => {
+      grid.appendChild(buildProjectCard(p, true, true));
+    });
+
+    others.forEach((p) => {
+      grid.appendChild(buildProjectCard(p, false, showAllProjects));
+    });
+
+    observeNewFadeUps();
+  }
+
+  async function loadProjects() {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) return;
+
+    try {
+      const response = await fetch('projects.json');
+      if (!response.ok) throw new Error('Erro ao carregar projetos.');
+      allProjects = await response.json();
+      renderProjects(allProjects);
+    } catch (err) {
+      grid.innerHTML =
+        '<p class="projects-error">Não foi possível carregar os projetos. Tente novamente mais tarde.</p>';
+    }
+  }
+
+  /* ----------------------------------------------------------
+     9. SHOW MORE / LESS
+  ---------------------------------------------------------- */
+  function initShowMore() {
+    const btn = document.getElementById('btn-show-more');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      showAllProjects = !showAllProjects;
+
+      const hiddenCards = document.querySelectorAll('.project-card.hidden-card');
+
+      if (showAllProjects) {
+        hiddenCards.forEach((card) => card.classList.add('visible'));
+        btn.classList.add('expanded');
+        btn.textContent = 'Ver menos';
+      } else {
+        hiddenCards.forEach((card) => card.classList.remove('visible'));
+        btn.classList.remove('expanded');
+        btn.textContent = 'Ver mais projetos';
       }
     });
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
-  });
+  }
 
-  revealElements.forEach(el => observer.observe(el));
-}
+  /* ----------------------------------------------------------
+     10. MODAL
+  ---------------------------------------------------------- */
+  function openModal(project) {
+    const overlay = document.getElementById('modal-overlay');
+    if (!overlay) return;
+
+    const categoryLabel = CATEGORY_LABELS[project.category] || project.category;
+
+    const elCategory = document.getElementById('modal-category');
+    const elTitle = document.getElementById('modal-title');
+    const elDesc = document.getElementById('modal-description');
+    const elRole = document.getElementById('modal-role');
+    const elIntegration = document.getElementById('modal-integration');
+    const elTechs = document.getElementById('modal-techs');
+    const elLinks = document.getElementById('modal-links');
+
+    if (elCategory) elCategory.textContent = categoryLabel;
+    if (elTitle) elTitle.textContent = project.name || '';
+    if (elDesc) elDesc.textContent = project.description || '';
+    if (elRole) elRole.textContent = project.role || '';
+    if (elIntegration) elIntegration.textContent = project.integration || '';
+
+    if (elTechs) {
+      elTechs.innerHTML = '';
+      (project.techs || []).forEach((tech) => {
+        const span = document.createElement('span');
+        span.className = 'modal-tech-item';
+        span.textContent = tech;
+        elTechs.appendChild(span);
+      });
+    }
+
+    if (elLinks) {
+      elLinks.innerHTML = '';
+
+      if (project.demoUrl) {
+        const a = document.createElement('a');
+        a.href = project.demoUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'modal-link modal-link-demo';
+        a.textContent = 'Ver Demo';
+        elLinks.appendChild(a);
+      }
+
+      if (project.githubUrl) {
+        const a = document.createElement('a');
+        a.href = project.githubUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'modal-link modal-link-github';
+        a.textContent = 'GitHub';
+        elLinks.appendChild(a);
+      }
+    }
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    const overlay = document.getElementById('modal-overlay');
+    if (!overlay) return;
+
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function initModal() {
+    const overlay = document.getElementById('modal-overlay');
+    const closeBtn = document.getElementById('modal-close');
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+
+    if (overlay) {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  }
+
+  /* ----------------------------------------------------------
+     11. SMOOTH SCROLL
+  ---------------------------------------------------------- */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     12. INIT
+  ---------------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    initCustomCursor();
+    initParticles();
+    initTypewriter();
+    initNavbarScroll();
+    initMobileMenu();
+    initActiveNav();
+    initScrollReveal();
+    initShowMore();
+    initModal();
+    initSmoothScroll();
+    loadProjects();
+  });
+})();
