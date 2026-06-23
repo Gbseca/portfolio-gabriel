@@ -104,6 +104,10 @@ button {
    ========================================================================== */
 
 @media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+
   .custom-cursor {
     width: 32px;
     height: 32px;
