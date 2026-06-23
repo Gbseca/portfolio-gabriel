@@ -262,7 +262,7 @@
     const featuredClass = isFeatured ? 'featured' : '';
     const categoryLabel = CATEGORY_LABELS[project.category] || project.category;
 
-    const techs = project.techs || [];
+    const techs = project.stack || [];
     const visibleTechs = techs.slice(0, 3);
     const remaining = techs.length - 3;
 
@@ -380,13 +380,13 @@
 
     if (elCategory) elCategory.textContent = categoryLabel;
     if (elTitle) elTitle.textContent = project.name || '';
-    if (elDesc) elDesc.textContent = project.description || '';
-    if (elRole) elRole.textContent = project.role || '';
+    if (elDesc) elDesc.textContent = project.detailDescription || project.description || '';
+    if (elRole) elRole.textContent = project.myRole || '';
     if (elIntegration) elIntegration.textContent = project.integration || '';
 
     if (elTechs) {
       elTechs.innerHTML = '';
-      (project.techs || []).forEach((tech) => {
+      (project.stack || []).forEach((tech) => {
         const span = document.createElement('span');
         span.className = 'modal-tech-item';
         span.textContent = tech;
