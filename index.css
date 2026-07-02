@@ -1452,7 +1452,7 @@ button {
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
-  background: #fff;
+  background: #f1f5f9;
   position: relative;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1473,354 +1473,978 @@ button {
   text-transform: uppercase;
 }
 
-/* ── Inner mock: scaled-down full-width site ── */
-.mock {
-  width: 900px;
-  transform-origin: top left;
-  transform: scale(0.44);   /* 900 * 0.44 ≈ 396 → fills the card */
+/* ── Centered mobile container ── */
+.mock-mobile-container {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Scaled mockups ── */
+.mock-mobile {
+  width: 360px;
+  height: 560px;
+  background: #fff;
+  border: 8px solid #0f172a;
+  border-radius: 24px;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.44); /* scale to fit perfectly in 16:10 */
+  transform-origin: center;
   font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
   pointer-events: none;
   user-select: none;
 }
 
-/* ── Shared mock elements ── */
-.mock-nav {
+.mock-desktop {
+  width: 900px;
+  height: 562px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0.44); /* 900 * 0.44 ≈ 396 */
+  transform-origin: top left;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================================================
+   MOCKUP 1: Burguer Delivery (Mobile Web App)
+   ========================================================================== */
+.mock-burger {
+  background: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-burger-header {
+  position: relative;
+  background: #1c1c1c;
+}
+
+.mock-burger-banner {
+  height: 100px;
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), 
+              linear-gradient(135deg, #f97316 0%, #7c2d12 100%);
+}
+
+.mock-burger-store {
+  display: flex;
+  padding: 12px 16px;
+  margin-top: -24px;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.mock-burger-logo {
+  width: 54px;
+  height: 54px;
+  background: #000;
+  border-radius: 12px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  border: 2px solid #2e2e2e;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.mock-burger-info h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.mock-burger-status-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  color: #a1a1aa;
+}
+
+.mock-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.mock-status-dot.closed {
+  background: #ef4444;
+}
+
+.mock-status-text {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.mock-burger-categories {
+  display: flex;
+  gap: 14px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  border-bottom: 1px solid #27272a;
+  white-space: nowrap;
+  font-size: 10px;
+  color: #71717a;
+}
+
+.mock-burger-categories span.active {
+  color: #ea580c;
+  font-weight: 700;
+  border-bottom: 2px solid #ea580c;
+  padding-bottom: 4px;
+}
+
+.mock-burger-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 14px 16px 8px;
+  color: #f4f4f5;
+}
+
+.mock-burger-products {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+  flex: 1;
+}
+
+.mock-burger-product-card {
+  display: flex;
+  background: #1c1c1e;
+  border-radius: 12px;
+  padding: 8px;
+  gap: 12px;
+  align-items: center;
+}
+
+.mock-burger-prod-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-size: cover;
+}
+
+.mock-burger-prod-img.p-img-1 { background: linear-gradient(135deg, #7c2d12 0%, #ea580c 100%); }
+.mock-burger-prod-img.p-img-2 { background: linear-gradient(135deg, #78350f 0%, #b45309 100%); }
+.mock-burger-prod-img.p-img-3 { background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%); }
+
+.mock-burger-prod-details h4 {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.mock-burger-prod-details .price {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ea580c;
+}
+
+.mock-burger-footer-bar {
+  background: #1c1c1e;
+  padding: 10px 16px 14px;
+  border-top: 1px solid #27272a;
+}
+
+.mock-burger-bag-btn {
+  background: #ea580c;
+  border-radius: 10px;
+  padding: 8px 14px;
+  display: flex;
   justify-content: space-between;
-  padding: 14px 32px;
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.mock-nav-dark {
-  background: #111827;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.mock-logo {
-  font-weight: 800;
-  font-size: 18px;
-  color: #111827;
-}
-
-.mock-nav-dark .mock-logo {
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
   color: #fff;
 }
 
-.mock-logo-blue { color: #0d9488; }
-.mock-logo-pink { color: #db2777; }
-
-.mock-nav-links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  font-size: 13px;
-  color: #6b7280;
+.bag-count {
+  background: rgba(0,0,0,0.2);
+  padding: 2px 6px;
+  border-radius: 50%;
 }
 
-.mock-nav-dark .mock-nav-links {
+/* ==========================================================================
+   MOCKUP 2: Barber scheduler (Mobile Web App)
+   ========================================================================== */
+.mock-barber {
+  background: #0f0f15;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.mock-barber-header h3 {
+  font-size: 15px;
+  font-weight: 800;
+  color: #d4af37;
+  letter-spacing: 0.05em;
+}
+
+.mock-barber-header p {
+  font-size: 9px;
+  color: #8f9094;
+}
+
+.mock-barber-section {
+  margin-top: 14px;
+}
+
+.section-heading {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8f9094;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.mock-barber-team {
+  display: flex;
+  gap: 12px;
+}
+
+.mock-barber-team .member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  color: #8f9094;
+}
+
+.mock-barber-team .member.active {
+  color: #d4af37;
+  font-weight: 600;
+}
+
+.mock-barber-team .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #232329;
+}
+
+.mock-barber-team .member.active .avatar {
+  border-color: #d4af37;
+}
+
+.av-1 { background: linear-gradient(135deg, #1e293b 0%, #475569 100%); }
+.av-2 { background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); }
+.av-3 { background: linear-gradient(135deg, #581c87 0%, #7e22ce 100%); }
+
+.mock-barber-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mock-barber-services-list .service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #161622;
+  border-radius: 10px;
+  padding: 8px 12px;
+  border: 1px solid #232329;
+}
+
+.mock-barber-services-list .service-item.checked {
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.svc-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.svc-info strong {
+  font-size: 10px;
+  color: #fff;
+}
+
+.svc-info span {
+  font-size: 8px;
+  color: #8f9094;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #0f0f15;
+}
+
+.checkbox.active {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #0f0f15;
+  font-weight: bold;
+}
+
+.mock-barber-days {
+  display: flex;
+  gap: 8px;
+}
+
+.day-card {
+  flex: 1;
+  background: #161622;
+  border: 1px solid #232329;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-card.active {
+  background: rgba(212,175,55,0.1);
+  border-color: #d4af37;
+}
+
+.day-card span {
+  font-size: 7px;
+  color: #8f9094;
+}
+
+.day-card.active span {
+  color: #d4af37;
+}
+
+.day-card strong {
+  font-size: 11px;
+  color: #fff;
+}
+
+.day-card.active strong {
+  color: #d4af37;
+}
+
+.mock-barber-slots {
+  display: flex;
+  gap: 8px;
+}
+
+.slot {
+  flex: 1;
+  background: #161622;
+  border: 1px solid #232329;
+  border-radius: 6px;
+  padding: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+}
+
+.slot.active {
+  background: #d4af37;
+  color: #0f0f15;
+  border-color: #d4af37;
+}
+
+.slot.disabled {
+  color: #374151;
+  text-decoration: line-through;
+  background: #0d0d12;
+}
+
+.mock-barber-book-btn {
+  background: #d4af37;
+  color: #0f0f15;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   MOCKUP 3: Clinica Odontológica (Desktop)
+   ========================================================================== */
+.mock-dentist {
+  background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+  padding: 28px 44px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-dentist-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(13,148,136,0.1);
+  padding-bottom: 14px;
+}
+
+.mock-dentist-top .logo {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f766e;
+}
+
+.mock-dentist-top .menu {
+  display: flex;
+  gap: 22px;
+  font-size: 12px;
+  color: #0f766e;
+  font-weight: 500;
+}
+
+.mock-dentist-main {
+  display: flex;
+  margin-top: 36px;
+  gap: 40px;
+  align-items: center;
+}
+
+.mock-dentist-text {
+  flex: 1.2;
+}
+
+.mock-dentist-text .tag {
+  color: #0d9488;
+  background: rgba(13,148,136,0.08);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.mock-dentist-text h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.mock-dentist-text p {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.mock-dentist-text .ratings {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f766e;
+}
+
+.mock-dentist-form-panel {
+  flex: 0.8;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(13,148,136,0.08);
+  border: 1px solid rgba(13,148,136,0.1);
+}
+
+.mock-dentist-form-panel h4 {
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.mock-dentist-form-panel .form-group {
+  margin-bottom: 10px;
+}
+
+.mock-dentist-form-panel input,
+.mock-dentist-form-panel select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #1f2937;
+}
+
+.mock-dentist-form-panel .form-btn {
+  background: #0d9488;
+  color: #fff;
+  font-weight: 600;
+  font-size: 11px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   MOCKUP 4: Portal de Oficina (Desktop)
+   ========================================================================== */
+.mock-mechanic {
+  background: #0b0f19;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 44px;
+}
+
+.mock-mechanic-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-bottom: 14px;
+}
+
+.mock-mechanic-top .logo {
+  font-size: 16px;
+  font-weight: 800;
+  color: #f97316;
+}
+
+.mock-mechanic-top .nav-links {
+  font-size: 12px;
+  color: #9ca3af;
+  display: flex;
+  gap: 20px;
+}
+
+.mock-mechanic-tracker {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tracker-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.tracker-header .search-bar {
+  display: flex;
+  max-width: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #374151;
+}
+
+.tracker-header input {
+  flex: 1;
+  background: #1f2937;
+  border: none;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #fff;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+}
+
+.tracker-header .search-btn {
+  background: #f97316;
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 10px 18px;
+}
+
+.tracker-body {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  position: relative;
+  padding-left: 10px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 21px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: #374151;
+  z-index: 1;
+}
+
+.timeline .step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+}
+
+.timeline .step .circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.timeline .step span {
+  font-size: 12px;
   color: #9ca3af;
 }
 
-.mock-links-blue { color: #0d9488; }
-.mock-links-pink { color: #db2777; }
-
-/* nav buttons */
-.mock-btn-nav {
-  background: #2563eb;
-  color: #fff !important;
-  padding: 7px 18px;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 13px !important;
+.timeline .step.completed .circle {
+  background: #10b981;
 }
 
-/* ── Hero areas ── */
-.mock-hero {
-  padding: 44px 32px 32px;
-  display: flex;
-  align-items: center;
-  gap: 32px;
+.timeline .step.completed span {
+  color: #10b981;
 }
 
-.mock-hero-burger  { background: linear-gradient(135deg, #1a0a00 0%, #3d1500 60%, #1a0a00 100%); }
-.mock-hero-barber  { background: linear-gradient(135deg, #0f0f0f 0%, #1c1c2e 70%); }
-.mock-hero-dentist { background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); }
-.mock-hero-mechanic{ background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 70%); }
-.mock-hero-beauty  { background: linear-gradient(135deg, #fff0f6 0%, #fce7f3 100%); }
-.mock-hero-gym     { background: linear-gradient(135deg, #052e16 0%, #14532d 60%, #052e16 100%); }
-
-.mock-hero-content {
-  flex: 1;
+.timeline .step.active .circle {
+  background: #f97316;
 }
 
-.mock-tag {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  color: #f97316;
-  background: rgba(249,115,22,0.12);
-  padding: 4px 12px;
-  border-radius: 50px;
-  margin-bottom: 14px;
-  letter-spacing: 0.04em;
-}
-
-.mock-tag-gold   { color: #d97706; background: rgba(217,119,6,0.12); }
-.mock-tag-teal   { color: #0d9488; background: rgba(13,148,136,0.1); }
-.mock-tag-orange { color: #ea580c; background: rgba(234,88,12,0.12); }
-.mock-tag-pink   { color: #db2777; background: rgba(219,39,119,0.1); }
-.mock-tag-green  { color: #16a34a; background: rgba(22,163,74,0.1); }
-
-.mock-hero h1 {
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1.15;
+.timeline .step.active span {
   color: #fff;
-  margin-bottom: 14px;
+  font-weight: 600;
 }
 
-.mock-hero h1 span { color: #f97316; }
-
-.mock-dark { color: #111827 !important; }
-.mock-gold   { color: #f59e0b; }
-.mock-teal   { color: #0d9488; }
-.mock-orange { color: #f97316; }
-.mock-pink   { color: #db2777; }
-.mock-green  { color: #4ade80; }
-
-.mock-sub {
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 22px;
-  max-width: 380px;
-}
-
-.mock-sub-dark { color: #4b5563; }
-
-.mock-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* CTA buttons inside mocks */
-.mock-btn-primary { background: #f97316; color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 13px; }
-.mock-btn-ghost   { background: rgba(255,255,255,0.1); color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 600; font-size: 13px; border: 1px solid rgba(255,255,255,0.25); }
-.mock-btn-gold    { background: #d97706; color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 13px; }
-.mock-btn-teal    { background: #0d9488; color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 13px; }
-.mock-btn-outline-teal { border: 2px solid #0d9488; color: #0d9488; padding: 9px 20px; border-radius: 50px; font-weight: 600; font-size: 13px; background: transparent; }
-.mock-btn-orange  { background: #ea580c; color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 13px; }
-.mock-btn-pink    { background: #db2777; color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 13px; }
-.mock-btn-green   { background: #16a34a; color: #fff; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 13px; }
-
-/* ── Burger product cards ── */
-.mock-cards-row {
-  display: flex;
-  gap: 16px;
-  padding: 20px 32px;
-  background: #fff;
-}
-
-.mock-card-item {
-  flex: 1;
+.budget-panel {
+  flex: 1.2;
+  background: #111827;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  overflow: hidden;
+  padding: 20px;
+  border: 1px solid #1f2937;
+}
+
+.budget-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #f97316;
+  margin-bottom: 14px;
+  letter-spacing: 0.05em;
+}
+
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #1f2937;
+  padding-bottom: 6px;
+}
+
+.budget-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 14px;
+}
+
+/* ==========================================================================
+   MOCKUP 5: Estética / Salão (Desktop)
+   ========================================================================== */
+.mock-beauty {
+  background: #fdf8f5;
+  color: #3f3f46;
+  padding: 28px 44px;
   display: flex;
   flex-direction: column;
-  font-size: 13px;
+}
+
+.mock-beauty-brand {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #db2777;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(219,39,119,0.1);
+  padding-bottom: 10px;
+}
+
+.mock-beauty-tagline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #18181b;
+  text-align: center;
+  margin: 22px 0 28px;
+}
+
+.mock-beauty-gallery {
+  display: flex;
+  gap: 20px;
+}
+
+.gallery-item {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(219,39,119,0.04);
+  border: 1px solid rgba(219,39,119,0.06);
+}
+
+.gallery-img {
+  height: 120px;
+}
+
+.gallery-img.g-img-1 { background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%); }
+.gallery-img.g-img-2 { background: linear-gradient(135deg, #fce7f3 0%, #db2777 100%); }
+.gallery-img.g-img-3 { background: linear-gradient(135deg, #fdf2f8 0%, #fda4af 100%); }
+
+.gallery-info {
+  padding: 12px;
+}
+
+.gallery-info h4 {
+  font-size: 11px;
+  font-weight: 700;
+  color: #18181b;
+  margin-bottom: 2px;
+}
+
+.gallery-info span {
+  font-size: 9px;
+  color: #71717a;
+}
+
+.mock-beauty-footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(219,39,119,0.1);
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #71717a;
+  align-items: center;
+}
+
+.mock-beauty-footer .cta-link {
+  color: #db2777;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   MOCKUP 6: Academia / Fitness (Desktop)
+   ========================================================================== */
+.mock-gym {
+  background: #09090b;
+  color: #fff;
+  padding: 28px 44px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-gym-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(34,197,94,0.1);
   padding-bottom: 12px;
 }
 
-.mock-card-item span {
-  padding: 8px 12px 2px;
-  color: #374151;
-  font-weight: 500;
+.mock-gym-navbar .logo {
+  font-size: 16px;
+  font-weight: 900;
+  color: #22c55e;
+  letter-spacing: 0.1em;
 }
 
-.mock-card-item strong {
-  padding: 0 12px;
-  color: #f97316;
-  font-size: 14px;
-}
-
-.mock-img {
-  width: 100%;
-  height: 90px;
-  background-size: cover;
-  background-position: center;
-}
-
-.mock-img-burger1 { background: linear-gradient(135deg, #7c2d12 0%, #c2410c 50%, #7c2d12 100%); }
-.mock-img-burger2 { background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #78350f 100%); }
-.mock-img-burger3 { background: linear-gradient(135deg, #14532d 0%, #16a34a 50%, #14532d 100%); }
-
-/* ── Barber schedule preview ── */
-.mock-schedule-preview {
-  background: #1a1a2e;
-  padding: 18px 32px;
-}
-
-.mock-schedule-title {
-  font-size: 13px;
-  color: #9ca3af;
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-
-.mock-slots {
+.mock-gym-navbar .links {
+  font-size: 11px;
+  color: #a1a1aa;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.mock-slot {
-  padding: 7px 16px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  background: rgba(245,158,11,0.1);
-  color: #f59e0b;
-  border: 1px solid rgba(245,158,11,0.3);
+.mock-gym-body {
+  display: flex;
+  margin-top: 28px;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-.mock-slot-taken {
-  background: rgba(255,255,255,0.04);
-  color: #4b5563;
-  border-color: rgba(255,255,255,0.08);
-  text-decoration: line-through;
-  opacity: 0.5;
-}
-
-/* ── Dentist image placeholder ── */
-.mock-dentist-img {
-  width: 200px;
-  height: 200px;
+.gym-calculator {
+  flex: 1;
+  background: #18181b;
   border-radius: 16px;
-  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-  flex-shrink: 0;
-  opacity: 0.4;
+  padding: 22px;
+  border: 1px solid #27272a;
 }
 
-/* ── Services row (dentist / beauty) ── */
-.mock-services-row {
+.gym-calculator h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #22c55e;
+}
+
+.calc-inputs {
   display: flex;
-  gap: 0;
-  background: #fff;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.mock-beauty-row { background: #fff0f6; }
-
-.mock-service-item {
+.input-col {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px 12px;
-  gap: 8px;
-  border-right: 1px solid #f3f4f6;
-  font-size: 13px;
-  color: #374151;
-  font-weight: 500;
+  gap: 4px;
 }
 
-.mock-service-item span { font-size: 24px; }
-.mock-service-item p { margin: 0; text-align: center; }
-
-.mock-s-teal { background: #f0fdfa; }
-.mock-s-pink { background: #fff0f6; }
-
-/* ── Mechanic services row ── */
-.mock-mechanic-services {
-  background: #111827;
-}
-
-.mock-mech-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 12px;
-  gap: 8px;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  color: #e5e7eb;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.mock-mech-item span { font-size: 24px; }
-.mock-mech-item p { margin: 0; }
-
-/* ── Gym plan cards ── */
-.mock-gym-plans {
-  background: #052e16;
-  padding: 20px 32px;
-  gap: 14px;
-}
-
-.mock-plan {
-  flex: 1;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  position: relative;
-}
-
-.mock-plan p {
-  font-size: 12px;
-  color: #86efac;
-  font-weight: 600;
-  margin-bottom: 6px;
+.input-col label {
+  font-size: 9px;
+  color: #a1a1aa;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
-.mock-plan strong {
-  font-size: 20px;
+.input-col input {
+  background: #09090b;
+  border: 1px solid #27272a;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 11px;
   color: #fff;
-  font-weight: 800;
+  text-align: center;
 }
 
-.mock-plan strong small {
-  font-size: 12px;
-  color: #4ade80;
-  font-weight: 400;
+.calc-btn {
+  background: #22c55e;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  padding: 9px;
+  border-radius: 8px;
+  margin-bottom: 14px;
 }
 
-.mock-plan-featured {
-  background: rgba(22,163,74,0.2);
-  border-color: rgba(74,222,128,0.4);
-  transform: scale(1.05);
+.calc-result {
+  background: #09090b;
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 3px solid #22c55e;
 }
 
-.mock-plan-tag {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #16a34a;
-  color: #fff;
+.calc-result span {
   font-size: 10px;
+  color: #a1a1aa;
+  display: block;
+}
+
+.calc-result p {
+  font-size: 9px;
+  color: #22c55e;
+  margin-top: 2px;
+}
+
+.gym-plan-recommendation {
+  flex: 1;
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(22,197,94,0.1);
+}
+
+.rec-badge {
+  background: #22c55e;
+  color: #000;
+  font-size: 9px;
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 50px;
-  white-space: nowrap;
+  display: inline-block;
+  margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* ── Responsive ── */
+.gym-plan-recommendation h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.gym-plan-recommendation .price {
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  margin: 10px 0;
+}
+
+.gym-plan-recommendation .price small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #86efac;
+}
+
+.gym-plan-recommendation ul {
+  list-style: none;
+  font-size: 10px;
+  color: #d1fae5;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.plan-cta {
+  background: #fff;
+  color: #14532d;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   RESPONSIVE & ADJUSTMENTS
+   ========================================================================== */
 @media (max-width: 1000px) {
   .samples-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
