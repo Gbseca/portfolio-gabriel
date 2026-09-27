@@ -105,7 +105,7 @@ button {
 
 @media (hover: hover) and (pointer: fine) {
   * {
-    cursor: none !important;
+    cursor: auto;
   }
 
   .custom-cursor {

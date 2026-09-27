@@ -1,0 +1,8 @@
+/* Native custom cursors also work inside dialogs and isolated previews. */
+@media (hover: hover) and (pointer: fine) {
+  :root, :root body, :root body * { cursor: url('assets/cursor.svg') 16 16, auto !important; }
+  :root body a, :root body a *, :root body button, :root body button *, :root body [role="button"], :root body [role="button"] * {
+    cursor: url('assets/cursor-hover.svg') 24 24, pointer !important;
+  }
+  :root body input, :root body textarea, :root body [contenteditable="true"] { cursor: text !important; }
+}
