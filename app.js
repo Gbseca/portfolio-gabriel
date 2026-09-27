@@ -1,486 +1,68 @@
-/* ============================================================
-   Gabriel Fonseca — Portfolio · Main JavaScript
-   ============================================================ */
-
-(function () {
+/* Native dialogs provide focus containment and make the background inert. */
+(() => {
   'use strict';
-
-  /* ----------------------------------------------------------
-     1. CUSTOM CURSOR
-  ---------------------------------------------------------- */
-  function initCustomCursor() {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
-
-    const cursor = document.getElementById('custom-cursor');
-    if (!cursor) return;
-
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-
-    const interactiveSelectors = 'a, button, .project-card, .service-card';
-
-    document.addEventListener('mouseenter', (e) => {
-      if (e.target.closest(interactiveSelectors)) {
-        cursor.classList.add('cursor-hover');
-      }
-    }, true);
-
-    document.addEventListener('mouseleave', (e) => {
-      if (e.target.closest(interactiveSelectors)) {
-        cursor.classList.remove('cursor-hover');
-      }
-    }, true);
+  const $ = id => document.getElementById(id);
+  const menu = $('navbar-links'), toggle = $('navbar-toggle');
+  const setMenu = open => {menu.classList.toggle('open', open);toggle.setAttribute('aria-expanded', String(open));toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');};
+  toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => {if(e.key === 'Escape' && menu.classList.contains('open')) {setMenu(false);toggle.focus();}});
+  document.addEventListener('click', e => {if(!e.target.closest('#navbar')) setMenu(false);});
+  const updateNav = () => $('navbar').classList.toggle('scrolled', window.scrollY > 30);
+  window.addEventListener('scroll', updateNav, {passive:true}); updateNav();
+  const dialog = $('modal-overlay');
+  let projectTrigger;
+  $('modal-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', e => {if(e.target === dialog) dialog.close();});
+  dialog.addEventListener('close', () => {document.body.style.overflow='';projectTrigger?.focus();});
+  function showProject(project, trigger) {
+    projectTrigger=trigger;
+    $('modal-title').textContent=project.name;
+    $('modal-category').textContent=project.category === 'principal' ? 'Em destaque' : 'Projeto & desenvolvimento';
+    $('modal-description').textContent=project.detailDescription || project.description;
+    $('modal-role').textContent=project.myRole;
+    $('modal-integration').textContent=project.integration;
+    $('modal-techs').replaceChildren(...project.stack.map(t => {const el=document.createElement('span');el.className='modal-tech-item';el.textContent=t;return el;}));
+    $('modal-links').replaceChildren();
+    const links=[];
+    if(project.demoUrl && new URL(project.demoUrl).hostname !== 'github.com') links.push(['Abrir site',project.demoUrl]);
+    if(project.githubUrl && new URL(project.githubUrl).pathname.split('/').filter(Boolean).length >= 2) links.push(['Ver código',project.githubUrl]);
+    for(const [label,url] of links) {const a=document.createElement('a');a.textContent=label;a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.className='modal-link';$('modal-links').append(a);}
+    dialog.showModal();document.body.style.overflow='hidden';$('modal-close').focus();
   }
-
-  /* ----------------------------------------------------------
-     2. PARTICLES CANVAS
-  ---------------------------------------------------------- */
-  function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    const PARTICLE_COUNT = 50;
-
-    function resize() {
-      const parent = canvas.parentElement;
-      canvas.width = parent.clientWidth;
-      canvas.height = parent.clientHeight;
-    }
-
-    function createParticles() {
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 1,
-          speedX: (Math.random() - 0.5) * 0.6,
-          speedY: (Math.random() - 0.5) * 0.6,
-          opacity: Math.random() * 0.3 + 0.1,
-        });
-      }
-    }
-
-    function update() {
-      for (const p of particles) {
-        p.x += p.speedX;
-        p.y += p.speedY;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-      }
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(37, 99, 235, ' + p.opacity + ')';
-        ctx.fill();
-      }
-    }
-
-    function loop() {
-      update();
-      draw();
-      requestAnimationFrame(loop);
-    }
-
-    resize();
-    createParticles();
-    loop();
-
-    window.addEventListener('resize', () => {
-      resize();
-      createParticles();
-    });
-  }
-
-  /* ----------------------------------------------------------
-     3. TYPEWRITER EFFECT
-  ---------------------------------------------------------- */
-  function initTypewriter() {
-    const el = document.getElementById('typewriter');
-    if (!el) return;
-
-    const phrases = [
-      'Automações inteligentes para WhatsApp com IA.',
-      'Sistemas de agendamento que funcionam sozinhos.',
-      'Sites profissionais que atraem clientes.',
-      'Soluções sob medida para o seu negócio.',
-    ];
-
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    el.classList.add('typewriter-cursor');
-
-    function tick() {
-      const current = phrases[phraseIndex];
-
-      if (!isDeleting) {
-        charIndex++;
-        el.textContent = current.substring(0, charIndex);
-
-        if (charIndex === current.length) {
-          isDeleting = true;
-          setTimeout(tick, 2000);
-          return;
-        }
-        setTimeout(tick, 60);
-      } else {
-        charIndex--;
-        el.textContent = current.substring(0, charIndex);
-
-        if (charIndex === 0) {
-          isDeleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          setTimeout(tick, 500);
-          return;
-        }
-        setTimeout(tick, 30);
-      }
-    }
-
-    tick();
-  }
-
-  /* ----------------------------------------------------------
-     4. NAVBAR SCROLL EFFECT
-  ---------------------------------------------------------- */
-  function initNavbarScroll() {
-    const navbar = document.getElementById('navbar');
-    if (!navbar) return;
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    }, { passive: true });
-  }
-
-  /* ----------------------------------------------------------
-     5. MOBILE MENU TOGGLE
-  ---------------------------------------------------------- */
-  function initMobileMenu() {
-    const toggle = document.getElementById('navbar-toggle');
-    const links = document.getElementById('navbar-links');
-    if (!toggle || !links) return;
-
-    toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
-    });
-
-    links.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        links.classList.remove('open');
-      });
-    });
-  }
-
-  /* ----------------------------------------------------------
-     6. ACTIVE NAV HIGHLIGHT
-  ---------------------------------------------------------- */
-  function initActiveNav() {
-    const sections = document.querySelectorAll('section[id]');
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            document.querySelectorAll('#navbar-links a').forEach((link) => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + id) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      },
-      { rootMargin: '-40% 0px -50% 0px' }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-  }
-
-  /* ----------------------------------------------------------
-     7. SCROLL REVEAL (fade-up)
-  ---------------------------------------------------------- */
-  let fadeUpObserver;
-
-  function initScrollReveal() {
-    fadeUpObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            fadeUpObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -30px 0px' }
-    );
-
-    document.querySelectorAll('.fade-up').forEach((el) => {
-      fadeUpObserver.observe(el);
-    });
-  }
-
-  function observeNewFadeUps() {
-    if (!fadeUpObserver) return;
-    document.querySelectorAll('.fade-up:not(.visible)').forEach((el) => {
-      fadeUpObserver.observe(el);
-    });
-  }
-
-  /* ----------------------------------------------------------
-     8. PROJECT LOADING & RENDERING
-  ---------------------------------------------------------- */
-  const CATEGORY_LABELS = {
-    principal: 'Destaque',
-    secundario: 'Comercial',
-    utilitario: 'Ferramenta',
-  };
-
-  let allProjects = [];
-  let showAllProjects = false;
-
-  function buildProjectCard(project, isFeatured, forceShow) {
-    const hiddenClass = !isFeatured && !forceShow ? 'hidden-card' : '';
-    const featuredClass = isFeatured ? 'featured' : '';
-    const categoryLabel = CATEGORY_LABELS[project.category] || project.category;
-
-    const techs = project.stack || [];
-    const visibleTechs = techs.slice(0, 3);
-    const remaining = techs.length - 3;
-
-    let techsHTML = visibleTechs
-      .map((t) => '<span class="tech-pill">' + t + '</span>')
-      .join('');
-    if (remaining > 0) {
-      techsHTML += '<span class="tech-pill">+' + remaining + '</span>';
-    }
-
-    const card = document.createElement('article');
-    card.className = ['project-card', 'fade-up', featuredClass, hiddenClass]
-      .filter(Boolean)
-      .join(' ');
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-
-    card.innerHTML =
-      '<span class="project-card-category">' + categoryLabel + '</span>' +
-      '<h3 class="project-card-name">' + project.name + '</h3>' +
-      '<p class="project-card-desc">' + project.description + '</p>' +
-      '<div class="project-card-footer">' +
-        '<div class="project-card-techs">' + techsHTML + '</div>' +
-        '<div class="project-card-arrow">' +
-          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-            '<line x1="5" y1="12" x2="19" y2="12"></line>' +
-            '<polyline points="12 5 19 12 12 19"></polyline>' +
-          '</svg>' +
-        '</div>' +
-      '</div>';
-
-    card.addEventListener('click', () => openModal(project));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') openModal(project);
-    });
-
-    return card;
-  }
-
-  function renderProjects(projects) {
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
-
-    grid.innerHTML = '';
-
-    const featured = projects.filter((p) => p.category === 'principal');
-    const others = projects.filter((p) => p.category !== 'principal');
-
-    featured.forEach((p) => {
-      grid.appendChild(buildProjectCard(p, true, true));
-    });
-
-    others.forEach((p) => {
-      grid.appendChild(buildProjectCard(p, false, showAllProjects));
-    });
-
-    observeNewFadeUps();
-  }
-
-  async function loadProjects() {
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
-
-    try {
-      const response = await fetch('projects.json');
-      if (!response.ok) throw new Error('Erro ao carregar projetos.');
-      allProjects = await response.json();
-      renderProjects(allProjects);
-    } catch (err) {
-      grid.innerHTML =
-        '<p class="projects-error">Não foi possível carregar os projetos. Tente novamente mais tarde.</p>';
-    }
-  }
-
-  /* ----------------------------------------------------------
-     9. SHOW MORE / LESS
-  ---------------------------------------------------------- */
-  function initShowMore() {
-    const btn = document.getElementById('btn-show-more');
-    if (!btn) return;
-
-    btn.addEventListener('click', () => {
-      showAllProjects = !showAllProjects;
-
-      const hiddenCards = document.querySelectorAll('.project-card.hidden-card');
-
-      if (showAllProjects) {
-        hiddenCards.forEach((card) => card.classList.add('visible'));
-        btn.classList.add('expanded');
-        btn.textContent = 'Ver menos';
-      } else {
-        hiddenCards.forEach((card) => card.classList.remove('visible'));
-        btn.classList.remove('expanded');
-        btn.textContent = 'Ver mais projetos';
-      }
-    });
-  }
-
-  /* ----------------------------------------------------------
-     10. MODAL
-  ---------------------------------------------------------- */
-  function openModal(project) {
-    const overlay = document.getElementById('modal-overlay');
-    if (!overlay) return;
-
-    const categoryLabel = CATEGORY_LABELS[project.category] || project.category;
-
-    const elCategory = document.getElementById('modal-category');
-    const elTitle = document.getElementById('modal-title');
-    const elDesc = document.getElementById('modal-description');
-    const elRole = document.getElementById('modal-role');
-    const elIntegration = document.getElementById('modal-integration');
-    const elTechs = document.getElementById('modal-techs');
-    const elLinks = document.getElementById('modal-links');
-
-    if (elCategory) elCategory.textContent = categoryLabel;
-    if (elTitle) elTitle.textContent = project.name || '';
-    if (elDesc) elDesc.textContent = project.detailDescription || project.description || '';
-    if (elRole) elRole.textContent = project.myRole || '';
-    if (elIntegration) elIntegration.textContent = project.integration || '';
-
-    if (elTechs) {
-      elTechs.innerHTML = '';
-      (project.stack || []).forEach((tech) => {
-        const span = document.createElement('span');
-        span.className = 'modal-tech-item';
-        span.textContent = tech;
-        elTechs.appendChild(span);
-      });
-    }
-
-    if (elLinks) {
-      elLinks.innerHTML = '';
-
-      if (project.demoUrl) {
-        const a = document.createElement('a');
-        a.href = project.demoUrl;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.className = 'modal-link modal-link-demo';
-        a.textContent = 'Ver Demo';
-        elLinks.appendChild(a);
-      }
-
-      if (project.githubUrl) {
-        const a = document.createElement('a');
-        a.href = project.githubUrl;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.className = 'modal-link modal-link-github';
-        a.textContent = 'GitHub';
-        elLinks.appendChild(a);
-      }
-    }
-
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    const overlay = document.getElementById('modal-overlay');
-    if (!overlay) return;
-
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function initModal() {
-    const overlay = document.getElementById('modal-overlay');
-    const closeBtn = document.getElementById('modal-close');
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', closeModal);
-    }
-
-    if (overlay) {
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeModal();
-      });
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-  }
-
-  /* ----------------------------------------------------------
-     11. SMOOTH SCROLL
-  ---------------------------------------------------------- */
-  function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', (e) => {
-        const href = anchor.getAttribute('href');
-        if (!href || href === '#') return;
-
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  }
-
-  /* ----------------------------------------------------------
-     12. INIT
-  ---------------------------------------------------------- */
-  document.addEventListener('DOMContentLoaded', () => {
-    initCustomCursor();
-    initParticles();
-    initTypewriter();
-    initNavbarScroll();
-    initMobileMenu();
-    initActiveNav();
-    initScrollReveal();
-    initShowMore();
-    initModal();
-    initSmoothScroll();
-    loadProjects();
+  let expanded=false;
+  $('btn-show-more').addEventListener('click', () => {
+    expanded=!expanded;
+    document.querySelectorAll('.project-card[data-extra]').forEach(c=>c.hidden=!expanded);
+    $('btn-show-more').textContent=expanded?'Mostrar menos':'Ver todos os projetos';
+    $('btn-show-more').setAttribute('aria-expanded',String(expanded));
   });
+  async function loadProjects() {
+    const grid=$('projects-grid');
+    try {
+      const res=await fetch('projects.json?v=20260927');if(!res.ok) throw new Error('projects');
+      const projects=await res.json();grid.replaceChildren();
+      for(const project of projects) {
+        const card=document.createElement('button');card.type='button';card.className='project-card';card.setAttribute('aria-label',`Ver detalhes de ${project.name}`);
+        const featured=project.category==='principal';
+        if(!featured){card.dataset.extra='';card.hidden=!expanded;} else card.classList.add('featured');
+        const label=document.createElement('span');label.className='project-card-category';label.textContent=featured?'Em destaque':'Projeto & desenvolvimento';
+        const title=document.createElement('h3');title.className='project-card-name';title.textContent=project.name;
+        const desc=document.createElement('p');desc.className='project-card-desc';desc.textContent=project.description;
+        const footer=document.createElement('div');footer.className='project-card-footer';
+        const tags=document.createElement('div');tags.className='project-card-techs';
+        for(const tech of project.stack.slice(0,3)){const tag=document.createElement('span');tag.className='tech-pill';tag.textContent=tech;tags.append(tag);}
+        const arrow=document.createElement('span');arrow.textContent='↗';arrow.className='project-card-arrow';arrow.setAttribute('aria-hidden','true');
+        footer.append(tags,arrow);card.append(label,title,desc,footer);card.addEventListener('click',()=>showProject(project,card));grid.append(card);
+      }
+      $('show-more-wrapper').hidden=!projects.some(p=>p.category!=='principal');
+    } catch {
+      grid.replaceChildren();const p=document.createElement('p');p.textContent='Não foi possível carregar os projetos.';
+      const retry=document.createElement('button');retry.className='btn btn-outline';retry.textContent='Tentar novamente';retry.addEventListener('click',loadProjects);grid.append(p,retry);$('show-more-wrapper').hidden=true;
+    }
+  }
+  const message=$('contact-message'),service=$('contact-service'),send=$('whatsapp-send');
+  function updateWhatsApp(){const text=`Olá, Gabriel! Tenho interesse em ${service.value}. ${message.value.trim() || 'Podemos conversar sobre meu projeto?'}`;send.href=`https://wa.me/5521972969475?text=${encodeURIComponent(text)}`;}
+  message.addEventListener('input',updateWhatsApp);service.addEventListener('change',updateWhatsApp);updateWhatsApp();
+  $('year').textContent=new Date().getFullYear();loadProjects();
 })();

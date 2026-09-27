@@ -5,7 +5,10 @@
   "main": "index.html",
   "scripts": {
     "start": "npx -y http-server -p 8080",
-    "dev": "npx -y http-server -p 8080"
+    "dev": "npx -y http-server -p 8080",
+    "test": "node --test tests/*.test.cjs"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
 }
