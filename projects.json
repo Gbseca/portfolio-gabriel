@@ -38,7 +38,7 @@
       "ESLint"
     ],
     "demoUrl": "https://barbearia-do.vercel.app",
-    "githubUrl": "https://github.com/Gbseca/barbearia-do-agendamento",
+    "githubUrl": "",
     "integration": "Conectado ao Supabase (banco barbeariaDO ativo no Vercel) para autenticação e manipulação em tempo real dos horários."
   },
   {
@@ -76,7 +76,7 @@
       "Lucide React"
     ],
     "demoUrl": null,
-    "githubUrl": "https://github.com/Gbseca/valeria-britto-fotografia-rj",
+    "githubUrl": "",
     "integration": "Banco Supabase (valeria-britto ativo) para dados do site e Netlify Blobs para armazenar os uploads de imagens sem custos extras."
   },
   {
@@ -150,7 +150,7 @@
       "Radix UI"
     ],
     "demoUrl": "https://mooveprotecao.vercel.app",
-    "githubUrl": "https://github.com/Gbseca/moove-protection-landing",
+    "githubUrl": "",
     "integration": "Deploy no Vercel integrado nativamente para controle de ramificações do GitHub."
   },
   {
@@ -185,7 +185,7 @@
       "Tailwind CSS"
     ],
     "demoUrl": null,
-    "githubUrl": "https://github.com/Gbseca/sales-pipeline-board",
+    "githubUrl": "",
     "integration": "Aplicação independente focada em demonstrar controle refinado de estados no frontend React."
   },
   {
