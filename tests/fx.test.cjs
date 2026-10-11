@@ -1,4 +1,4 @@
-﻿const {test,afterEach}=require('node:test');
+const {test,afterEach}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {JSDOM}=require('jsdom');
@@ -29,12 +29,10 @@ test('hero title keeps its text when split into animated words',()=>{
   assert.ok(t.querySelectorAll('.fx-word').length>=3);
   assert.match(t.textContent.replace(/\s+/g,' ').trim(),/Transformo ideias em\s*sistemas que vendem\./);
 });
-test('animated cursor only exists for fine pointers and never replaces dialogs cursor',()=>{
-  const w=load({fine:true}),d=w.document;
-  assert.ok(d.querySelector('.fx-cursor-dot')&&d.querySelector('.fx-cursor-ring'));
-  assert.ok(d.documentElement.classList.contains('fx-cursor-on'));
-  d.querySelector('#modal-overlay').setAttribute('open','');
+test('FX enhancements do not create a second cursor',()=>{
+ const d=load({fine:true}).document;assert.equal(d.querySelector('.fx-cursor-ring'),null);assert.equal(d.documentElement.classList.contains('fx-cursor-on'),false);
 });
+
 test('reduced motion keeps content visible and skips the word animation',()=>{
   const d=load({reduced:true}).document;
   assert.equal(d.querySelectorAll('.fx-word').length,0);

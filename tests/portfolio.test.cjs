@@ -37,7 +37,7 @@ test('navigation reports open and closed state',async()=>{
  d.querySelector('#navbar-links a').click();assert.equal(b.getAttribute('aria-expanded'),'false');dom.window.close();
 });
 test('github repositories never masquerade as live demos',async()=>{
- const dom=await app(),d=dom.window.document;d.querySelector('.project-card').click();
+ const dom=await app(),d=dom.window.document;d.querySelector('[aria-label="Ver detalhes de ZapBot Pro"]').click();
  const links=[...d.querySelectorAll('#modal-links a')];
  assert.equal(links.filter(a=>a.href.includes('github.com')).length,1);
  assert.ok(!links.some(a=>/demo/i.test(a.textContent)&&a.href.includes('github.com')));dom.window.close();
@@ -66,4 +66,13 @@ test('restarting a loaded preview resets loading feedback and rearms failure rec
  d.querySelector('#preview-status').textContent='Previous load failed';d.querySelector('#preview-restart').click();
  assert.equal(w.previewTimeouts.length,2);assert.ok(!d.querySelector('#preview-status').textContent.includes('Previous'));
  w.previewTimeouts[1]();assert.ok(d.querySelector('#preview-status').textContent.includes('Reiniciar'));dom.window.close();
+});
+
+test('published sites use an allowlisted URL, independent guide and restore focus',async()=>{
+ const dom=await app(),w=dom.window,d=w.document,button=d.querySelector('[data-live-preview="vora"]');button.click();
+ let frame=d.querySelector('#preview-frame');assert.equal(frame.src,'https://vorastore-phi.vercel.app/');assert.equal(frame.getAttribute('sandbox'),'allow-scripts allow-same-origin');assert.equal(d.querySelector('#preview-original').hidden,false);
+ frame.dispatchEvent(new w.Event('load'));assert.equal(d.querySelector('#preview-status').hidden,true);d.querySelector('#live-guide-next').click();assert.match(d.querySelector('#live-guide-count').textContent,/2/);
+ d.querySelector('#live-guide-dismiss').click();assert.equal(d.activeElement,d.querySelector('#preview-guide'));d.querySelector('#preview-guide').click();assert.equal(d.querySelector('#live-guide').hidden,false);
+ d.querySelector('#preview-close').click();assert.equal(d.querySelector('#preview-frame'),null);assert.equal(d.activeElement,button);
+ d.querySelector('[data-preview]').click();assert.equal(d.querySelector('#live-guide').hidden,true);assert.equal(d.querySelector('#preview-original').hidden,true);assert.equal(d.querySelector('#preview-frame').getAttribute('sandbox'),'allow-scripts');
 });

@@ -81,68 +81,6 @@
   pointer-events: none;
 }
 
-/* ---------- Animated cursor (desktop, fine pointer only) ---------- */
-html.fx-cursor-on:root body,
-html.fx-cursor-on:root body * { cursor: none !important; }
-html.fx-cursor-on:root body input,
-html.fx-cursor-on:root body textarea,
-html.fx-cursor-on:root body select { cursor: text !important; }
-
-.fx-cursor-dot,
-.fx-cursor-ring,
-.fx-cursor-trail {
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 2147483000;
-  border-radius: 50%;
-  opacity: 0;
-  will-change: transform;
-  transition: opacity 0.3s ease;
-}
-.fx-cursor-dot {
-  width: 8px; height: 8px; margin: -4px 0 0 -4px;
-  background: #2563eb;
-  box-shadow: 0 0 14px rgba(37, 99, 235, 0.8);
-}
-.fx-cursor-ring {
-  width: 38px; height: 38px; margin: -19px 0 0 -19px;
-  border: 1.5px solid rgba(37, 99, 235, 0.55);
-  background: rgba(37, 99, 235, 0.04);
-  transition: opacity 0.3s ease, width 0.35s cubic-bezier(.16,1,.3,1), height 0.35s cubic-bezier(.16,1,.3,1),
-    margin 0.35s cubic-bezier(.16,1,.3,1), background-color 0.3s ease, border-color 0.3s ease;
-}
-.fx-cursor-trail {
-  width: 10px; height: 10px; margin: -5px 0 0 -5px;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.7), rgba(37, 99, 235, 0));
-}
-html.fx-cursor-live .fx-cursor-dot,
-html.fx-cursor-live .fx-cursor-ring { opacity: 1; }
-html.fx-cursor-live .fx-cursor-trail { opacity: 0.55; }
-html.fx-cursor-hover .fx-cursor-ring {
-  width: 68px; height: 68px; margin: -34px 0 0 -34px;
-  background: rgba(37, 99, 235, 0.1);
-  border-color: rgba(37, 99, 235, 0.9);
-}
-html.fx-cursor-hover .fx-cursor-dot { opacity: 0; }
-html.fx-cursor-down .fx-cursor-ring {
-  width: 26px; height: 26px; margin: -13px 0 0 -13px;
-  background: rgba(37, 99, 235, 0.22);
-}
-html.fx-cursor-text .fx-cursor-dot,
-html.fx-cursor-text .fx-cursor-ring,
-html.fx-cursor-text .fx-cursor-trail { opacity: 0 !important; }
-.fx-ripple {
-  position: fixed;
-  width: 14px; height: 14px; margin: -7px 0 0 -7px;
-  border-radius: 50%;
-  border: 2px solid rgba(37, 99, 235, 0.7);
-  pointer-events: none;
-  z-index: 2147483000;
-  animation: fx-ripple 0.7s cubic-bezier(.16,1,.3,1) forwards;
-}
-@keyframes fx-ripple { to { transform: scale(7); opacity: 0; } }
-
 /* ---------- Hero ---------- */
 .fx-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
 .fx-word > span {

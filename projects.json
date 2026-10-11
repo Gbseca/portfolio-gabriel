@@ -1,5 +1,24 @@
 [
   {
+    "id": "vora-store",
+    "name": "VORA Store",
+    "category": "principal",
+    "description": "Loja de streetwear com catálogo, escolha de tamanhos, sacola e identidade visual animada.",
+    "detailDescription": "Uma experiência de loja virtual que combina uma apresentação cinematográfica em verde esmeralda com catálogo por categoria, páginas de produto, guia de medidas e sacola. O mascote Vori reage durante a navegação. O fluxo de compra é demonstrativo, sem cobrança.",
+    "myRole": "Criação da experiência de navegação e compra, identidade visual, animações de abertura e interações do mascote, com adaptação para celular e publicação na Vercel.",
+    "stack": [
+      "React",
+      "TypeScript",
+      "Vinext",
+      "Tailwind CSS",
+      "Motion",
+      "Vercel"
+    ],
+    "demoUrl": "https://vorastore-phi.vercel.app/",
+    "githubUrl": null,
+    "integration": "Catálogo e sacola conectados à API do projeto. A demonstração não processa pagamentos."
+  },
+  {
     "id": "zapbot-pro",
     "name": "ZapBot Pro",
     "category": "principal",
@@ -136,11 +155,11 @@
   },
   {
     "id": "moove-protection-landing",
-    "name": "Moove Proteção Essencial",
-    "category": "secundario",
-    "description": "Landing page de vendas de alta performance e conversão para proteção veicular.",
-    "detailDescription": "Página comercial otimizada para campanhas de anúncios (Google Ads / Facebook Ads), projetada sob princípios de copywriting e design responsivo moderno.",
-    "myRole": "Construção do frontend com componentes shadcn/ui e Radix UI, estilizados com Tailwind CSS para garantir performance impecável.",
+    "name": "Moove Proteção Veicular · RJ",
+    "category": "principal",
+    "description": "Site comercial com coberturas, perguntas frequentes e solicitação de cotação para proteção veicular.",
+    "detailDescription": "Site da filial Rio de Janeiro, organizado para explicar as coberturas e as condições da associação. Reúne formulário de cotação com dados do veículo, perguntas frequentes expansíveis, seção de transparência e atalhos para atendimento pelo WhatsApp.",
+    "myRole": "Desenvolvimento da interface responsiva, organização do conteúdo comercial, formulário de cotação e navegação entre as seções, com publicação na Vercel.",
     "stack": [
       "React",
       "TypeScript",
@@ -151,7 +170,7 @@
     ],
     "demoUrl": "https://mooveprotecao.vercel.app",
     "githubUrl": "",
-    "integration": "Deploy no Vercel integrado nativamente para controle de ramificações do GitHub."
+    "integration": "Solicitação de cotação e acesso aos canais de atendimento da Moove. A prévia mostra o site publicado, com informações e contatos próprios da empresa."
   },
   {
     "id": "v0-meta-ads-platform",

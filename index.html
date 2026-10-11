@@ -6,14 +6,14 @@
   <meta name="description" content="Gabriel Fonseca — Desenvolvedor de sistemas web, automações comerciais com IA, sistemas de agendamento e sites sob medida para o seu negócio.">
   <meta name="theme-color" content="#fafafa">
   <meta name="author" content="Gabriel Fonseca da Silva">
-  <link rel="icon" type="image/jpeg" href="assets/profile.jpg?v=20261005">
+  <link rel="icon" type="image/png" href="assets/profile-aquarium.png">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gabrielseca.is-a.dev/">
   <meta property="og:title" content="Gabriel Fonseca | Desenvolvedor Web">
   <meta property="og:description" content="Sistemas web, automações com IA e sites sob medida para o seu negócio.">
-  <meta property="og:image" content="https://gabrielseca.is-a.dev/assets/profile.jpg?v=20261005">
+  <meta property="og:image" content="https://gabrielseca.is-a.dev/assets/profile-aquarium.png">
 
   <link rel="canonical" href="https://gabrielseca.is-a.dev/">
   <title>Gabriel Fonseca | Desenvolvedor Web</title>
@@ -24,9 +24,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="index.css?v=20260927">
-  <link rel="stylesheet" href="portfolio.css?v=20260927">
-<link rel="stylesheet" href="cursor.css?v=20260927-2">
-<link rel="stylesheet" href="fx.css?v=20261005"></head>
+  <link rel="stylesheet" href="portfolio.css?v=20261011">
+<link rel="stylesheet" href="cursor.css?v=20261011"><link rel="stylesheet" href="fx.css?v=20261011"><link rel="stylesheet" href="live-previews.css?v=20261011"></head>
 <body>
 
   <!-- Custom Cursor (desktop only) -->
@@ -41,6 +40,7 @@
         <li><a href="#inicio">Início</a></li>
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#amostras">Amostras</a></li>
+        <li><a href="#sites-publicados">Sites</a></li>
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -61,6 +61,7 @@
   <!-- ====== HERO ====== -->
   <section class="hero" id="inicio">
     <!-- Particle canvas background -->
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
 
     <!-- Floating blobs -->
@@ -77,7 +78,7 @@
         <h1 class="hero-title fade-up">
           Transformo ideias em<br><span class="gradient-text">sistemas que vendem.</span>
         </h1>
-        <p class="hero-subtitle">Sites, convites interativos e automações que aproximam seu negócio das pessoas. Do primeiro clique ao atendimento no WhatsApp.</p>
+        <p id="typewriter" class="hero-subtitle">Sites, convites interativos e automações que aproximam seu negócio das pessoas. Do primeiro clique ao atendimento no WhatsApp.</p>
         <div class="hero-actions fade-up">
           <a href="#amostras" class="btn btn-primary">Explorar experiências</a>
           <a href="https://wa.me/5521972969475" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Solicitar Orçamento</a>
@@ -96,7 +97,7 @@
       </div>
       <div class="hero-photo-wrapper fade-up">
         <div class="hero-photo-glow"></div>
-        <img src="assets/profile.jpg" alt="Gabriel Fonseca" class="hero-photo">
+        <img src="assets/profile-aquarium.png" alt="Gabriel Fonseca" class="hero-photo">
       </div>
     </div>
 
@@ -170,6 +171,9 @@
  <span class="sample-info"><span class="sample-kind">Experiência desktop</span><strong>Advocacia · editorial</strong><span>A composição do PDF ganha vida em uma experiência navegável.</span><span class="sample-explore">Explorar prévia <span aria-hidden="true">↗</span></span></span>
  </button></article></div>
 <p class="sample-footnote">Prévias navegáveis com dados de demonstração. As interações não enviam informações.</p></div></section>
+<section id="sites-publicados" class="section live-section"><div class="section-inner">
+<div class="section-header"><span class="section-label">NAVEGUE NOS PROJETOS</span><h2 class="section-title">Do portfólio para a experiência real.</h2><p class="section-desc">Abra os sites publicados e explore cada detalhe com um guia de navegação.</p></div><div class="live-grid">
+<article class="live-card"><button class="live-open" data-live-preview="vora" data-title="VORA Store" data-device="desktop" aria-label="Explorar VORA Store"><div class="live-screen"><img src="assets/previews/live/vora.webp" alt="Página inicial da VORA com coleção streetwear em verde esmeralda" loading="lazy" width="1280" height="720"><span>Explorar site ↗</span></div><div class="live-info"><span class="sample-kind">LOJA VIRTUAL · STREETWEAR</span><h3>VORA Store</h3><p>Catálogo, tamanhos e sacola em uma experiência com personalidade. Conheça também o Vori.</p></div></button><a href="https://vorastore-phi.vercel.app/" target="_blank" rel="noopener noreferrer">Abrir em outra aba ↗</a></article><article class="live-card"><button class="live-open" data-live-preview="moove" data-title="Moove Proteção Veicular" data-device="desktop" aria-label="Explorar Moove Proteção Veicular"><div class="live-screen"><img src="assets/previews/live/moove.webp" alt="Página inicial da Moove com apresentação e formulário de cotação" loading="lazy" width="1280" height="720"><span>Explorar site ↗</span></div><div class="live-info"><span class="sample-kind">SITE COMERCIAL · PROTEÇÃO VEICULAR</span><h3>Moove Proteção Veicular</h3><p>Coberturas, dúvidas e cotação em uma navegação que aproxima o visitante do atendimento.</p></div></button><a href="https://mooveprotecao.vercel.app/" target="_blank" rel="noopener noreferrer">Abrir em outra aba ↗</a></article></div><p class="live-note">Estas prévias abrem os sites publicados. A VORA demonstra compras sem cobrança; a Moove possui canais reais de atendimento.</p></div></section>
   <!-- ====== PROJETOS ====== -->
   <section class="section" id="projetos">
     <div class="section-inner">
@@ -257,8 +261,8 @@
   </footer>
 
   <a class="floating-whatsapp" href="https://wa.me/5521972969475?text=Ol%C3%A1%2C%20Gabriel!%20Quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer" aria-label="Conversar com Gabriel no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.4 8.4 0 0 1-12.2 7.5L3 21l1.7-5.2A8.4 8.4 0 1 1 20.5 11.7Z"/><path d="M8 7.5c0 5 3 8 7.7 8l.8-2.1-2.5-1.2-1.1 1.1a8 8 0 0 1-2.7-2.7L11.3 9 10 6.7Z"/></svg><span>Vamos conversar?</span></a>
-<dialog id="preview-dialog" class="preview-dialog" aria-labelledby="preview-title"><header class="preview-toolbar"><div><span class="preview-eyebrow">Modo prévia</span><h2 id="preview-title">Experiência interativa</h2></div><nav aria-label="Controles da prévia"><button id="preview-guide">Dicas</button><button id="preview-restart">Reiniciar</button><a id="preview-contact" href="https://wa.me/5521972969475" target="_blank" rel="noopener noreferrer">Quero um assim ↗</a><button id="preview-close" aria-label="Fechar prévia">✕</button></nav></header><div id="preview-stage" class="preview-stage"><p id="preview-status" role="status">Preparando sua experiência…</p></div></dialog>
+<dialog id="preview-dialog" class="preview-dialog" aria-labelledby="preview-title"><header class="preview-toolbar"><div><span class="preview-eyebrow">Modo prévia</span><h2 id="preview-title">Experiência interativa</h2></div><nav aria-label="Controles da prévia"><a id="preview-original" href="#" target="_blank" rel="noopener noreferrer" hidden>Abrir site ↗</a><button id="preview-guide">Dicas</button><button id="preview-restart">Reiniciar</button><a id="preview-contact" href="https://wa.me/5521972969475" target="_blank" rel="noopener noreferrer">Quero um assim ↗</a><button id="preview-close" aria-label="Fechar prévia">✕</button></nav></header><div id="preview-stage" class="preview-stage"><p id="preview-status" role="status">Preparando sua experiência…</p></div><aside id="live-guide" class="live-guide" aria-label="Guia do site publicado" hidden><div><span id="live-guide-count"></span><button id="live-guide-dismiss" aria-label="Ocultar dicas do site">✕</button></div><h3 id="live-guide-title" tabindex="-1"></h3><p id="live-guide-text"></p><footer><button id="live-guide-back">← Voltar</button><button id="live-guide-next">Próxima dica →</button></footer></aside></dialog>
 <noscript><p class="no-script">Ative o JavaScript para explorar as amostras. Você também pode <a href="https://github.com/Gbseca">ver os projetos no GitHub</a> ou conversar pelo WhatsApp.</p></noscript>
-<script src="app.js?v=20260927"></script><script src="gallery.js?v=20260927"></script><script src="fx.js?v=20261005"></script>
-</body>
+<script src="app.js?v=20260927"></script><script src="gallery.js?v=20261011"></script>
+<script src="cursor.js?v=20261011"></script><script src="effects.js?v=20261011"></script><script src="fx.js?v=20261011"></script></body>
 </html>

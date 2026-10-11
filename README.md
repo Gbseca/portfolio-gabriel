@@ -18,7 +18,7 @@ Site estático em HTML, CSS e JavaScript. Produção: https://gabrielseca.is-a.d
 
 ## Privacidade das amostras
 
-Os arquivos originais não foram modificados. As cópias incluem somente elementos visuais selecionados, sem convidados, nomes pessoais, endereço, data real, telefone de evento, Pix, configurações de banco ou backend dos convites. Não há persistência nos formulários de amostra. O iframe usa `sandbox="allow-scripts"` e a CSP bloqueia conexão de rede e envio de formulários. Fechar ou reiniciar descarta todas as escolhas.
+Os arquivos originais não foram modificados. As cópias incluem somente elementos visuais selecionados, sem convidados, nomes pessoais, endereço, data real, telefone de evento, Pix, configurações de banco ou backend dos convites. Não há persistência nos formulários de amostra. O iframe usa `sandbox="allow-scripts"` e a CSP bloqueia conexão de rede e envio de formulários. Nas seis amostras locais, fechar ou reiniciar descarta todas as escolhas.
 
 Os botões do portfólio para WhatsApp são reais e usam o telefone público do proprietário. A mensagem pode ser revisada pelo visitante antes do envio. Botões de contato dentro das amostras apenas demonstram a interação.
 
@@ -33,3 +33,9 @@ O GitHub Pages publica a raiz da branch **main**, com `.nojekyll` e `CNAME`. O d
 - Fachada: [Wes Fischer / Unsplash](https://unsplash.com/photos/g39p1kDjvSY).
 - Interior: [Lui Peng / Unsplash](https://unsplash.com/photos/8NxTrV6i4WQ).
 - Fotografias de arquitetura são referências visuais dos layouts, não obras arquitetônicas atribuídas ao desenvolvedor.
+
+## Projetos publicados e efeitos
+
+VORA Store e Moove Proteção Veicular possuem cartões com capturas reais e prévias externas com guia. As seis amostras locais continuam isoladas e sem envio de dados. Os sites externos são páginas publicadas: os fluxos e APIs pertencem a esses projetos, e a Moove possui atendimento real. A VORA serve sua loja sem o mascote em iframes; o guia oferece a abertura em outra aba para a experiência completa.
+
+`cursor.js` e `cursor.css` restauram o círculo original com mistura de cores. `effects.js` restaura partículas e texto digitado. `fx.js`/`fx.css` preservam a aurora, grade reativa, entrada de conteúdo e interações já publicadas em outubro, sem um segundo cursor. A foto fornecida é `assets/profile-aquarium.png`.

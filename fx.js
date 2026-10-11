@@ -1,4 +1,4 @@
-/* FX layer: background, cursor, reveals, tilt, magnetic buttons, counters.
+/* FX layer: background, reveals, tilt, magnetic buttons, counters.
    Pure progressive enhancement — every piece is guarded so a failure never
    breaks the portfolio itself. */
 (() => {
@@ -85,64 +85,6 @@
     window.addEventListener('blur', () => { mouse.active = false; });
   }
 
-  /* ---------- Animated cursor ---------- */
-  function setupCursor() {
-    if (!finePointer) return;
-    const dot = make('div', 'fx-cursor-dot', doc.body);
-    const ring = make('div', 'fx-cursor-ring', doc.body);
-    const trail = Array.from({ length: 7 }, () => make('div', 'fx-cursor-trail', doc.body));
-    [dot, ring, ...trail].forEach(el => el.setAttribute('aria-hidden', 'true'));
-    trail.forEach((el, i) => { el.style.scale = String(1 - i * 0.11); });
-    root.classList.add('fx-cursor-on');
-    const pos = { rx: -100, ry: -100, trail: trail.map(() => ({ x: -100, y: -100 })) };
-    let started = false, raf = 0;
-
-    const interactive = 'a,button,[role="button"],summary,label[for],select,.project-card,.sample-open,.btn,.social-icon';
-    const place = (el, x, y) => { el.style.transform = `translate3d(${x}px,${y}px,0)`; };
-    const tick = () => {
-      place(dot, mouse.x, mouse.y);
-      pos.rx = lerp(pos.rx, mouse.x, 0.17); pos.ry = lerp(pos.ry, mouse.y, 0.17);
-      place(ring, pos.rx, pos.ry);
-      let tx = mouse.x, ty = mouse.y;
-      trail.forEach((el, i) => {
-        const p = pos.trail[i];
-        p.x = lerp(p.x, tx, 0.34); p.y = lerp(p.y, ty, 0.34);
-        place(el, p.x, p.y); tx = p.x; ty = p.y;
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    const begin = () => {
-      if (started) return; started = true;
-      pos.rx = mouse.x; pos.ry = mouse.y; pos.trail.forEach(p => { p.x = mouse.x; p.y = mouse.y; });
-      root.classList.add('fx-cursor-live'); raf = requestAnimationFrame(tick);
-    };
-    window.addEventListener('pointermove', e => {
-      if (e.pointerType === 'touch') return;
-      begin();
-      const t = e.target instanceof Element ? e.target : null;
-      root.classList.toggle('fx-cursor-hover', !!(t && t.closest(interactive)));
-      root.classList.toggle('fx-cursor-text', !!(t && t.closest('input,textarea')));
-    }, { passive: true });
-    doc.addEventListener('pointerdown', e => {
-      root.classList.add('fx-cursor-down');
-      const r = make('div', 'fx-ripple', doc.body);
-      r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
-      r.addEventListener('animationend', () => r.remove());
-    });
-    doc.addEventListener('pointerup', () => root.classList.remove('fx-cursor-down'));
-    doc.addEventListener('mouseleave', () => root.classList.remove('fx-cursor-live'));
-    doc.addEventListener('mouseenter', () => { if (started) root.classList.add('fx-cursor-live'); });
-
-    // Native <dialog>s render above everything: hand the native cursor back while one is open.
-    const sync = () => {
-      const open = !!doc.querySelector('dialog[open]');
-      root.classList.toggle('fx-cursor-on', !open);
-      root.classList.toggle('fx-cursor-live', !open && started);
-    };
-    const mo = new MutationObserver(sync);
-    doc.querySelectorAll('dialog').forEach(d => mo.observe(d, { attributes: true, attributeFilter: ['open'] }));
-  }
-
   /* ---------- Scroll progress + scroll spy ---------- */
   function setupScroll() {
     const bar = make('div', 'fx-progress'); bar.setAttribute('aria-hidden', 'true'); doc.body.prepend(bar);
@@ -188,7 +130,7 @@
     if (content && !content.querySelector('.fx-stats')) {
       const stats = make('div', 'fx-stats fx-reveal');
       const items = [
-        ['projects', 'projetos publicados'],
+        ['projects', 'projetos desenvolvidos'],
         ['samples', 'experiências interativas'],
         ['services', 'soluções sob medida'],
       ];
@@ -227,7 +169,7 @@
   function runStats() {
     const values = {
       projects: doc.querySelectorAll('.project-card').length,
-      samples: doc.querySelectorAll('[data-preview]').length,
+      samples: doc.querySelectorAll('[data-preview],[data-live-preview]').length,
       services: doc.querySelectorAll('.service-card').length,
     };
     doc.querySelectorAll('[data-stat]').forEach(el => {
@@ -295,7 +237,7 @@
   const runStatsSoon = () => { clearTimeout(statsTimer); statsTimer = setTimeout(runStats, 250); };
 
   function init() {
-    const steps = [trackPointer, setupBackground, setupCursor, setupScroll, setupHero, setupReveals];
+    const steps = [trackPointer, setupBackground, setupScroll, setupHero, setupReveals];
     steps.forEach(fn => { try { fn(); } catch (err) { console.warn('[fx]', fn.name, err); } });
     runStatsSoon();
   }
